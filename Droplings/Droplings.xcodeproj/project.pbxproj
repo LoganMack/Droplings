@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8B91B549F080005987B /* AppDelegate.swift */; };
-		4376F8BC1B549F080005987B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8BB1B549F080005987B /* ViewController.swift */; };
 		4376F8BF1B549F080005987B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8BD1B549F080005987B /* Main.storyboard */; };
 		4376F8C11B549F080005987B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8C01B549F080005987B /* Images.xcassets */; };
 		4376F8C41B549F080005987B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8C21B549F080005987B /* LaunchScreen.xib */; };
 		4376F8D01B549F090005987B /* DroplingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8CF1B549F090005987B /* DroplingsTests.swift */; };
+		4376F8DA1B54A0640005987B /* BattlePrepVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8D91B54A0640005987B /* BattlePrepVC.swift */; };
+		4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DB1B54A4680005987B /* DroplingBase.swift */; };
+		4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +31,15 @@
 		4376F8B41B549F080005987B /* Droplings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droplings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4376F8B81B549F080005987B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4376F8B91B549F080005987B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4376F8BB1B549F080005987B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4376F8BE1B549F080005987B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4376F8C01B549F080005987B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4376F8C31B549F080005987B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4376F8C91B549F090005987B /* DroplingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DroplingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4376F8CE1B549F090005987B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4376F8CF1B549F090005987B /* DroplingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroplingsTests.swift; sourceTree = "<group>"; };
+		4376F8D91B54A0640005987B /* BattlePrepVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepVC.swift; sourceTree = "<group>"; };
+		4376F8DB1B54A4680005987B /* DroplingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroplingBase.swift; sourceTree = "<group>"; };
+		4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepSubVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +82,12 @@
 			isa = PBXGroup;
 			children = (
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
-				4376F8BB1B549F080005987B /* ViewController.swift */,
+				4376F8D91B54A0640005987B /* BattlePrepVC.swift */,
+				4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */,
 				4376F8BD1B549F080005987B /* Main.storyboard */,
 				4376F8C01B549F080005987B /* Images.xcassets */,
 				4376F8C21B549F080005987B /* LaunchScreen.xib */,
+				4376F8DB1B54A4680005987B /* DroplingBase.swift */,
 				4376F8B71B549F080005987B /* Supporting Files */,
 			);
 			path = Droplings;
@@ -212,8 +218,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4376F8BC1B549F080005987B /* ViewController.swift in Sources */,
+				4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */,
 				4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */,
+				4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */,
+				4376F8DA1B54A0640005987B /* BattlePrepVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
