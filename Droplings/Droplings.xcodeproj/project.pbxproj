@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4342848E1B57103D0018602E /* HatBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342848D1B57103D0018602E /* HatBase.swift */; };
+		434284901B5712C20018602E /* ShirtBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342848F1B5712C20018602E /* ShirtBase.swift */; };
+		434284921B57149E0018602E /* ItemBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434284911B57149E0018602E /* ItemBase.swift */; };
 		4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8B91B549F080005987B /* AppDelegate.swift */; };
 		4376F8BF1B549F080005987B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8BD1B549F080005987B /* Main.storyboard */; };
 		4376F8C11B549F080005987B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8C01B549F080005987B /* Images.xcassets */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4342848D1B57103D0018602E /* HatBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HatBase.swift; sourceTree = "<group>"; };
+		4342848F1B5712C20018602E /* ShirtBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShirtBase.swift; sourceTree = "<group>"; };
+		434284911B57149E0018602E /* ItemBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemBase.swift; sourceTree = "<group>"; };
 		4376F8B41B549F080005987B /* Droplings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droplings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4376F8B81B549F080005987B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4376F8B91B549F080005987B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		434284931B57195A0018602E /* Base Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4376F8DB1B54A4680005987B /* DroplingBase.swift */,
+				4342848D1B57103D0018602E /* HatBase.swift */,
+				4342848F1B5712C20018602E /* ShirtBase.swift */,
+				434284911B57149E0018602E /* ItemBase.swift */,
+			);
+			name = "Base Classes";
+			sourceTree = "<group>";
+		};
 		4376F8AB1B549F080005987B = {
 			isa = PBXGroup;
 			children = (
@@ -81,13 +98,13 @@
 		4376F8B61B549F080005987B /* Droplings */ = {
 			isa = PBXGroup;
 			children = (
+				434284931B57195A0018602E /* Base Classes */,
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
 				4376F8D91B54A0640005987B /* BattlePrepVC.swift */,
 				4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */,
 				4376F8BD1B549F080005987B /* Main.storyboard */,
 				4376F8C01B549F080005987B /* Images.xcassets */,
 				4376F8C21B549F080005987B /* LaunchScreen.xib */,
-				4376F8DB1B54A4680005987B /* DroplingBase.swift */,
 				4376F8B71B549F080005987B /* Supporting Files */,
 			);
 			path = Droplings;
@@ -219,8 +236,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */,
+				434284901B5712C20018602E /* ShirtBase.swift in Sources */,
 				4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */,
 				4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */,
+				4342848E1B57103D0018602E /* HatBase.swift in Sources */,
+				434284921B57149E0018602E /* ItemBase.swift in Sources */,
 				4376F8DA1B54A0640005987B /* BattlePrepVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +371,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Droplings/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -361,6 +382,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Droplings/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -419,6 +441,7 @@
 				4376F8D51B549F090005987B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4376F8D61B549F090005987B /* Build configuration list for PBXNativeTarget "DroplingsTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +450,7 @@
 				4376F8D81B549F090005987B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
