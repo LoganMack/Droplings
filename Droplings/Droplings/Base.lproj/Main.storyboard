@@ -35,13 +35,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="282"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Green Dropling 1" translatesAutoresizingMaskIntoConstraints="NO" id="q54-qo-Lc2" userLabel="Opponent">
-                                <rect key="frame" x="334" y="16" width="250" height="250"/>
+                                <rect key="frame" x="342" y="20" width="242" height="242"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="q54-qo-Lc2" secondAttribute="width" multiplier="1:1" id="UmI-oH-0fj"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3S4-hO-rbA" userLabel="Player">
-                                <rect key="frame" x="16" y="16" width="251" height="251"/>
+                                <rect key="frame" x="16" y="20" width="243" height="243"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="3S4-hO-rbA" secondAttribute="width" multiplier="1:1" id="QvH-9e-Fgw"/>
                                 </constraints>
@@ -61,7 +61,7 @@
                             <constraint firstItem="OGj-5W-WR8" firstAttribute="leading" secondItem="zeL-ua-oCQ" secondAttribute="leading" id="5LT-aV-joH"/>
                             <constraint firstItem="q54-qo-Lc2" firstAttribute="centerY" secondItem="Wee-8g-my5" secondAttribute="centerY" id="8v0-Pr-qfZ"/>
                             <constraint firstItem="Wee-8g-my5" firstAttribute="top" secondItem="cO5-fG-giC" secondAttribute="bottom" id="H2r-Jc-wdX"/>
-                            <constraint firstItem="WnE-pH-6VR" firstAttribute="leading" secondItem="3S4-hO-rbA" secondAttribute="trailing" constant="8" id="Hfi-fc-As0"/>
+                            <constraint firstItem="WnE-pH-6VR" firstAttribute="leading" secondItem="3S4-hO-rbA" secondAttribute="trailing" constant="16" id="Hfi-fc-As0"/>
                             <constraint firstItem="Wee-8g-my5" firstAttribute="centerX" secondItem="WnE-pH-6VR" secondAttribute="centerX" id="HoC-y9-tGF"/>
                             <constraint firstItem="OGj-5W-WR8" firstAttribute="height" secondItem="zeL-ua-oCQ" secondAttribute="height" multiplier="0.5" id="JCZ-LO-qJK"/>
                             <constraint firstItem="3S4-hO-rbA" firstAttribute="centerY" secondItem="Wee-8g-my5" secondAttribute="centerY" id="MHm-YJ-aoC"/>
@@ -71,7 +71,7 @@
                             <constraint firstItem="tGE-s4-kjY" firstAttribute="top" secondItem="Wee-8g-my5" secondAttribute="bottom" id="Zzq-NR-3dS"/>
                             <constraint firstAttribute="trailing" secondItem="tGE-s4-kjY" secondAttribute="trailing" id="cf3-WP-iW4"/>
                             <constraint firstItem="tGE-s4-kjY" firstAttribute="leading" secondItem="zeL-ua-oCQ" secondAttribute="leading" id="kli-fG-Y4A"/>
-                            <constraint firstItem="q54-qo-Lc2" firstAttribute="leading" secondItem="WnE-pH-6VR" secondAttribute="trailing" constant="8" id="nbF-9b-dQT"/>
+                            <constraint firstItem="q54-qo-Lc2" firstAttribute="leading" secondItem="WnE-pH-6VR" secondAttribute="trailing" constant="16" id="nbF-9b-dQT"/>
                             <constraint firstItem="OGj-5W-WR8" firstAttribute="top" secondItem="tGE-s4-kjY" secondAttribute="bottom" id="oOM-SD-c9M"/>
                             <constraint firstItem="5io-4Y-uDg" firstAttribute="top" secondItem="OGj-5W-WR8" secondAttribute="bottom" id="r5J-QS-A4Y"/>
                             <constraint firstAttribute="trailing" secondItem="Wee-8g-my5" secondAttribute="trailing" id="tr5-nv-Cw6"/>
@@ -150,7 +150,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vuj-JD-PmE">
-                                                <rect key="frame" x="32.5" y="4" width="149.5" height="40.5"/>
+                                                <rect key="frame" x="32" y="4" width="149.5" height="40.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -172,7 +172,7 @@
                                         </connections>
                                     </view>
                                     <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSN-Iv-mCQ" userLabel="ItemHat">
-                                        <rect key="frame" x="4" y="56.5" width="186" height="48.5"/>
+                                        <rect key="frame" x="4" y="56" width="186" height="48.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Water Dropling 2" translatesAutoresizingMaskIntoConstraints="NO" id="Nah-gs-Wg1">
                                                 <rect key="frame" x="4" y="12" width="24.5" height="24.5"/>
@@ -181,7 +181,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wbo-sV-LFH">
-                                                <rect key="frame" x="32.5" y="4" width="149.5" height="40.5"/>
+                                                <rect key="frame" x="32" y="4" width="149.5" height="40.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -212,7 +212,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shirt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hBc-Qv-4yc">
-                                                <rect key="frame" x="32.5" y="4" width="149.5" height="40.5"/>
+                                                <rect key="frame" x="32" y="4" width="149.5" height="40.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -234,7 +234,7 @@
                                         </connections>
                                     </view>
                                     <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0m-BE-vse" userLabel="ItemItem">
-                                        <rect key="frame" x="4" y="161.5" width="186" height="48.5"/>
+                                        <rect key="frame" x="4" y="161" width="186" height="48.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Green Dropling 2" translatesAutoresizingMaskIntoConstraints="NO" id="Yvz-sG-Ol8">
                                                 <rect key="frame" x="4" y="12" width="24.5" height="24.5"/>
@@ -243,7 +243,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CpL-et-8LG">
-                                                <rect key="frame" x="32.5" y="4" width="149.5" height="40.5"/>
+                                                <rect key="frame" x="32" y="4" width="149.5" height="40.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -298,7 +298,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEK-lF-Ab6" userLabel="TableViewContainer">
                                 <rect key="frame" x="202" y="8" width="390" height="214"/>
                                 <subviews>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z9I-Em-uBh">
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z9I-Em-uBh">
                                         <rect key="frame" x="4" y="4" width="382" height="206"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>

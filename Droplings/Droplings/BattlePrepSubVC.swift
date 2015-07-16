@@ -35,6 +35,8 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedShirt: Shirt?
     var selectedItem: Item?
     
+    
+    
     // MARK: - PLACEHOLDER VARIABLES
     // If this app is ever expanded, these variables will need to be replaced with something more dynamic.
     var droplings: [Dropling] = [Dropling(name: "Bilbo", type: "Blue", damage: 3, defense: 1, health: 30, stamina: 30, regen: 3, image: "Blue Dropling 1", imageHat: "", imageShirt: "", equipment: ""), Dropling(name: "Hershey", type: "Yellow", damage: 2, defense: 5, health: 25, stamina: 35, regen: 2, image: "Yellow Dropling 1", imageHat: "", imageShirt: "", equipment: ""), Dropling(name: "The Rock", type: "Orange", damage: 8, defense: 8, health: 40, stamina: 40, regen: 5, image: "Orange Dropling 1", imageHat: "", imageShirt: "", equipment: "")]
@@ -46,25 +48,24 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var items: [Item] = [Item(name: "Medallion of Strength", desc: "", damage: 5, defense: 0, health: 0, stamina: 0, regen: 0, image: ""), Item(name: "Balance Pin", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 1, image: ""), Item(name: "Pet Rock", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: ""), Item(name: "Ice Orb", desc: "", damage: 0, defense: 2, health: 0, stamina: 5, regen: 2, image: "")]
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     
     
-    // MARK: - @IBActions
+    // MARK: - CUSTOM FUNCTIONS
+    /// Checks to see if the user has selected a dropling, hat, shirt, and item for the battle. If they have, we unhide the "Battle" button.
     func checkBattle () {
-        if let dropling = selectedDropling {
-            if let hat = selectedHat {
-                if let shirt = selectedShirt {
-                    if let item = selectedItem {
-                        battleButton.hidden = false
-                    }
-                }
-            }
+        if selectedDropling != nil && selectedHat != nil && selectedShirt != nil && selectedItem != nil {
+            battleButton.hidden = false
         }
     }
     
+    
+    
+    // MARK: - @IBActions
     /// Starts the battle.
     @IBAction func battleAction(sender: UITapGestureRecognizer) {
         
@@ -141,8 +142,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         tableView.hidden = false
         tableView.reloadData()
     }
+    
+    
 
     // MARK: - TABLE VIEW DELEGATES
+    // Determines number of rows in the tableview by counting the amount of entries in the selected array of data.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if selectedIcon?.tag == 0 {
             return droplings.count
@@ -157,6 +161,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         return 1
     }
     
+    // Sets up the cells in the tableview.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Recycle cells
         var cell = tableView.dequeueReusableCellWithIdentifier(cellReuse, forIndexPath: indexPath) as! BattlePrepTableViewCell;
@@ -204,6 +209,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         return cell;
     }
     
+    // Determines what to do when a cell in the tableview is tapped.
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if selectedIcon?.tag == 0 {
             parent?.playerImage.image = UIImage(named: droplings[indexPath.row].image)
