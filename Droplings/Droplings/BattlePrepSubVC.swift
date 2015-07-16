@@ -8,10 +8,15 @@
 
 import UIKit
 
-class BattlePrepSubVC: UIViewController {
+// Cell Reuse Identifier
+let cellReuse = "cellReuse"
+
+class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // TableView outlet.
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var battleButton: UIView!
     
     // Outlets for selectable images.
     @IBOutlet weak var dropImage: UIImageView!
@@ -23,7 +28,12 @@ class BattlePrepSubVC: UIViewController {
     var parent: BattlePrepVC?
 
     // Variable that contains the currently selected image.
-    var selectedIcon: UIImageView?
+    var selectedIcon: UIView?
+    
+    var selectedDropling: Dropling?
+    var selectedHat: Hat?
+    var selectedShirt: Shirt?
+    var selectedItem: Item?
     
     // MARK: - PLACEHOLDER VARIABLES
     // If this app is ever expanded, these variables will need to be replaced with something more dynamic.
@@ -43,9 +53,20 @@ class BattlePrepSubVC: UIViewController {
     
     
     // MARK: - @IBActions
+    func checkBattle () {
+        if let dropling = selectedDropling {
+            if let hat = selectedHat {
+                if let shirt = selectedShirt {
+                    if let item = selectedItem {
+                        battleButton.hidden = false
+                    }
+                }
+            }
+        }
+    }
     
     /// Starts the battle.
-    @IBAction func battleAction(sender: UIButton) {
+    @IBAction func battleAction(sender: UITapGestureRecognizer) {
         
     }
     
@@ -54,15 +75,17 @@ class BattlePrepSubVC: UIViewController {
         if selectedIcon != nil {
             selectedIcon?.layer.borderWidth = 0
             
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         } else {
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         }
         
+        tableView.hidden = false
+        tableView.reloadData()
     }
     
     /// Lets the user choose their dropling's hat via the tableview.
@@ -70,15 +93,17 @@ class BattlePrepSubVC: UIViewController {
         if selectedIcon != nil {
             selectedIcon?.layer.borderWidth = 0
             
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         } else {
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         }
         
+        tableView.hidden = false
+        tableView.reloadData()
     }
     
     /// Lets the user choose their dropling's item via the tableview.
@@ -86,15 +111,17 @@ class BattlePrepSubVC: UIViewController {
         if selectedIcon != nil {
             selectedIcon?.layer.borderWidth = 0
             
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         } else {
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         }
         
+        tableView.hidden = false
+        tableView.reloadData()
     }
     
     /// Lets the user choose their dropling's shirt via the tableview.
@@ -102,16 +129,107 @@ class BattlePrepSubVC: UIViewController {
         if selectedIcon != nil {
             selectedIcon?.layer.borderWidth = 0
             
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         } else {
-            selectedIcon = sender.view as? UIImageView
+            selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
             selectedIcon?.layer.borderWidth = 3
         }
         
+        tableView.hidden = false
+        tableView.reloadData()
+    }
+
+    // MARK: - TABLE VIEW DELEGATES
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if selectedIcon?.tag == 0 {
+            return droplings.count
+        } else if selectedIcon?.tag == 1 {
+            return hats.count
+        } else if selectedIcon?.tag == 2 {
+            return shirts.count
+        } else if selectedIcon?.tag == 3 {
+            return items.count
+        }
+        
+        return 1
     }
     
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // Recycle cells
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellReuse, forIndexPath: indexPath) as! BattlePrepTableViewCell;
+        
+        // Configure the cell.
+        if selectedIcon?.tag == 0 {
+            cell.name.text = droplings[indexPath.row].name;
+            cell.cellImage.image = UIImage(named: droplings[indexPath.row].image)
+            cell.damage.text = droplings[indexPath.row].damage.description;
+            cell.defense.text = droplings[indexPath.row].defense.description;
+            cell.health.text = droplings[indexPath.row].health.description;
+            cell.stamina.text = droplings[indexPath.row].stamina.description;
+            cell.regen.text = droplings[indexPath.row].regen.description;
+            
+        } else if selectedIcon?.tag == 1 {
+            cell.name.text = hats[indexPath.row].name;
+            cell.cellImage.image = UIImage(named: hats[indexPath.row].image)
+            cell.damage.text = hats[indexPath.row].damage.description;
+            cell.defense.text = hats[indexPath.row].defense.description;
+            cell.health.text = hats[indexPath.row].health.description;
+            cell.stamina.text = hats[indexPath.row].stamina.description;
+            cell.regen.text = hats[indexPath.row].regen.description;
+            
+        } else if selectedIcon?.tag == 2 {
+            cell.name.text = shirts[indexPath.row].name;
+            cell.cellImage.image = UIImage(named: shirts[indexPath.row].image)
+            cell.damage.text = shirts[indexPath.row].damage.description;
+            cell.defense.text = shirts[indexPath.row].defense.description;
+            cell.health.text = shirts[indexPath.row].health.description;
+            cell.stamina.text = shirts[indexPath.row].stamina.description;
+            cell.regen.text = shirts[indexPath.row].regen.description;
+            
+        } else if selectedIcon?.tag == 3 {
+            cell.name.text = items[indexPath.row].name;
+            cell.cellImage.image = UIImage(named: items[indexPath.row].image)
+            cell.damage.text = items[indexPath.row].damage.description;
+            cell.defense.text = items[indexPath.row].defense.description;
+            cell.health.text = items[indexPath.row].health.description;
+            cell.stamina.text = items[indexPath.row].stamina.description;
+            cell.regen.text = items[indexPath.row].regen.description;
+            
+        }
+        
+        // Return the configured cell.
+        return cell;
+    }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if selectedIcon?.tag == 0 {
+            parent?.playerImage.image = UIImage(named: droplings[indexPath.row].image)
+            dropImage.image = UIImage(named: droplings[indexPath.row].image)
+            selectedDropling = droplings[indexPath.row]
+            
+            checkBattle()
+            
+        } else if selectedIcon?.tag == 1 {
+            selectedHat = hats[indexPath.row]
+            println("HAT CHANGED")
+            
+            checkBattle()
+            
+        } else if selectedIcon?.tag == 2 {
+            selectedShirt = shirts[indexPath.row]
+            println("SHIRT CHANGED")
+            
+            checkBattle()
+            
+        } else if selectedIcon?.tag == 3 {
+            selectedItem = items[indexPath.row]
+            println("ITEM CHANGED")
+            
+            checkBattle()
+            
+        }
+    }
 }

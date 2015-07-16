@@ -10,6 +10,7 @@
 		4342848E1B57103D0018602E /* HatBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342848D1B57103D0018602E /* HatBase.swift */; };
 		434284901B5712C20018602E /* ShirtBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342848F1B5712C20018602E /* ShirtBase.swift */; };
 		434284921B57149E0018602E /* ItemBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434284911B57149E0018602E /* ItemBase.swift */; };
+		434284971B573D7B0018602E /* BattlePrepTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434284961B573D7B0018602E /* BattlePrepTableViewCell.swift */; };
 		4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8B91B549F080005987B /* AppDelegate.swift */; };
 		4376F8BF1B549F080005987B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8BD1B549F080005987B /* Main.storyboard */; };
 		4376F8C11B549F080005987B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4376F8C01B549F080005987B /* Images.xcassets */; };
@@ -34,6 +35,7 @@
 		4342848D1B57103D0018602E /* HatBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HatBase.swift; sourceTree = "<group>"; };
 		4342848F1B5712C20018602E /* ShirtBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShirtBase.swift; sourceTree = "<group>"; };
 		434284911B57149E0018602E /* ItemBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemBase.swift; sourceTree = "<group>"; };
+		434284961B573D7B0018602E /* BattlePrepTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepTableViewCell.swift; sourceTree = "<group>"; };
 		4376F8B41B549F080005987B /* Droplings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droplings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4376F8B81B549F080005987B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4376F8B91B549F080005987B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,16 @@
 			name = "Base Classes";
 			sourceTree = "<group>";
 		};
+		434284981B5757B90018602E /* Battle Prep */ = {
+			isa = PBXGroup;
+			children = (
+				4376F8D91B54A0640005987B /* BattlePrepVC.swift */,
+				4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */,
+				434284961B573D7B0018602E /* BattlePrepTableViewCell.swift */,
+			);
+			name = "Battle Prep";
+			sourceTree = "<group>";
+		};
 		4376F8AB1B549F080005987B = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				434284931B57195A0018602E /* Base Classes */,
+				434284981B5757B90018602E /* Battle Prep */,
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
-				4376F8D91B54A0640005987B /* BattlePrepVC.swift */,
-				4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */,
 				4376F8BD1B549F080005987B /* Main.storyboard */,
 				4376F8C01B549F080005987B /* Images.xcassets */,
 				4376F8C21B549F080005987B /* LaunchScreen.xib */,
@@ -237,6 +248,7 @@
 			files = (
 				4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */,
 				434284901B5712C20018602E /* ShirtBase.swift in Sources */,
+				434284971B573D7B0018602E /* BattlePrepTableViewCell.swift in Sources */,
 				4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */,
 				4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */,
 				4342848E1B57103D0018602E /* HatBase.swift in Sources */,
