@@ -26,7 +26,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     // Variable that stores parent view controller, which is defined in BattlePrepVC.
     var parent: BattlePrepVC?
-
+    
     // Variable that contains the currently selected image.
     var selectedIcon: UIView?
     
@@ -53,6 +53,14 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var battleVC = segue.destinationViewController as! BattleVC
+        
+        battleVC.selectedDropling = selectedDropling
+        battleVC.selectedHat = selectedHat
+        battleVC.selectedShirt = selectedShirt
+        battleVC.selectedItem = selectedItem
+    }
     
     
     // MARK: - CUSTOM FUNCTIONS
@@ -68,7 +76,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     // MARK: - @IBActions
     /// Starts the battle.
     @IBAction func battleAction(sender: UITapGestureRecognizer) {
-        
+        performSegueWithIdentifier("battle", sender: self)
     }
     
     /// Lets the user choose their dropling via the tableview.
@@ -144,7 +152,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
-
+    
     // MARK: - TABLE VIEW DELEGATES
     // Determines number of rows in the tableview by counting the amount of entries in the selected array of data.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

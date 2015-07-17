@@ -12,13 +12,13 @@ class BattlePrepVC: UIViewController {
     
     @IBOutlet weak var playerImage: UIImageView!
     @IBOutlet weak var opponentImage: UIImageView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         var subVC: BattlePrepSubVC = childViewControllers[0] as! BattlePrepSubVC
         subVC.parent = subVC.parentViewController as? BattlePrepVC
-
+        
     }
-
+    
 }
