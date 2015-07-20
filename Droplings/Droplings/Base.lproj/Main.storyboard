@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PgM-i9-3zT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="79G-DU-uKe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--HelpVC-->
+        <scene sceneID="KBx-vo-RQP">
+            <objects>
+                <viewController id="79G-DU-uKe" customClass="HelpVC" customModule="Droplings" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cK2-Tw-Teu"/>
+                        <viewControllerLayoutGuide type="bottom" id="cne-42-nfZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U7S-6O-cu0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2sC-tF-MwW">
+                                <rect key="frame" x="150" y="8" width="300" height="60"/>
+                                <color key="backgroundColor" red="0.75650609310000005" green="0.90463737399999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2sC-tF-MwW" firstAttribute="width" secondItem="U7S-6O-cu0" secondAttribute="width" multiplier="0.5" id="BCi-8F-0E4"/>
+                            <constraint firstItem="2sC-tF-MwW" firstAttribute="top" secondItem="cK2-Tw-Teu" secondAttribute="bottom" constant="8" id="HLf-Sh-5wH"/>
+                            <constraint firstItem="2sC-tF-MwW" firstAttribute="height" secondItem="U7S-6O-cu0" secondAttribute="height" multiplier="0.1" id="IpL-KV-sgv"/>
+                            <constraint firstAttribute="centerX" secondItem="2sC-tF-MwW" secondAttribute="centerX" id="mk0-Uc-gdr"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="helpTitle" destination="2sC-tF-MwW" id="bIY-2a-5Kd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W3T-UG-Kta" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-455" y="226"/>
+        </scene>
         <!--Battle PrepVC-->
         <scene sceneID="IXr-xe-shv">
             <objects>
