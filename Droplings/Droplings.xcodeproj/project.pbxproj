@@ -21,6 +21,7 @@
 		4376F8DA1B54A0640005987B /* BattlePrepVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8D91B54A0640005987B /* BattlePrepVC.swift */; };
 		4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DB1B54A4680005987B /* DroplingBase.swift */; };
 		4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */; };
+		43D1C5031B5D88AB0018D9ED /* BattleStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5021B5D88AB0018D9ED /* BattleStatsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		4376F8D91B54A0640005987B /* BattlePrepVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepVC.swift; sourceTree = "<group>"; };
 		4376F8DB1B54A4680005987B /* DroplingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroplingBase.swift; sourceTree = "<group>"; };
 		4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepSubVC.swift; sourceTree = "<group>"; };
+		43D1C5021B5D88AB0018D9ED /* BattleStatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BattleStatsVC.swift; path = ../BattleStatsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +117,11 @@
 		4376F8B61B549F080005987B /* Droplings */ = {
 			isa = PBXGroup;
 			children = (
+				4376F8B91B549F080005987B /* AppDelegate.swift */,
 				434284931B57195A0018602E /* Base Classes */,
 				434284981B5757B90018602E /* Battle Prep */,
-				4376F8B91B549F080005987B /* AppDelegate.swift */,
 				4342849A1B575F8C0018602E /* BattleVC.swift */,
+				43D1C5021B5D88AB0018D9ED /* BattleStatsVC.swift */,
 				4376F8BD1B549F080005987B /* Main.storyboard */,
 				4376F8C01B549F080005987B /* Images.xcassets */,
 				4376F8C21B549F080005987B /* LaunchScreen.xib */,
@@ -257,6 +260,7 @@
 				434284901B5712C20018602E /* ShirtBase.swift in Sources */,
 				434284971B573D7B0018602E /* BattlePrepTableViewCell.swift in Sources */,
 				4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */,
+				43D1C5031B5D88AB0018D9ED /* BattleStatsVC.swift in Sources */,
 				4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */,
 				4342849B1B575F8C0018602E /* BattleVC.swift in Sources */,
 				4342848E1B57103D0018602E /* HatBase.swift in Sources */,

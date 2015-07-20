@@ -27,7 +27,7 @@ class Dropling {
     var imageShirt: String = ""
     
     // Equipable Item
-    var equipment: String = ""
+    var equipment: Item? = nil
     
     
     // Initializer
@@ -35,7 +35,7 @@ class Dropling {
         
     }
     
-    init(name: String, type: String, damage: Int, defense: Int, health: Int, stamina: Int, regen: Int, image: String, imageHat: String, imageShirt: String, equipment: String) {
+    init(name: String, type: String, damage: Int, defense: Int, health: Int, stamina: Int, regen: Int, image: String, imageHat: String, imageShirt: String, equipment: Item) {
         
         self.name = name
         self.type = type
