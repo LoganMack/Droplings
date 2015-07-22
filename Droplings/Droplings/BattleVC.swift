@@ -118,6 +118,8 @@ class BattleVC: UIViewController {
     
     var aiSkillSelector = 0
     
+    var preventEndlessLoop = 50
+    
     // Battle UI Outlets
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var opponentName: UILabel!
@@ -260,7 +262,7 @@ class BattleVC: UIViewController {
             fadeView.alpha = 1
             view.userInteractionEnabled = true
             
-            var chooseFirst = Int(arc4random_uniform(1))
+            var chooseFirst = Int(arc4random_uniform(2))
             println(chooseFirst)
             if chooseFirst == 0 {
                 battlePlayerTurn()
@@ -358,50 +360,54 @@ class BattleVC: UIViewController {
         
         aiSkillSelector = Int(arc4random_uniform(4))
         
-        if opponentCurrentStamina > opponentSkills[aiSkillSelector].stCost && opponentCurrentHealth > opponentSkills[aiSkillSelector].hpCost {
-            opponentAttack()
+        if preventEndlessLoop >= 0 {
+            if opponentCurrentStamina > opponentSkills[aiSkillSelector].stCost && opponentCurrentHealth > opponentSkills[aiSkillSelector].hpCost {
+                opponentAttack()
+            } else {
+                --preventEndlessLoop
+                opponentSkillSelector()
+            }
         } else {
-            opponentSkillSelector()
+            preventEndlessLoop = 50
+            opponentAttack()
         }
     }
     
     func opponentAttack() {
-        if aiSkillSelector != 4 {
-            
-            if aiSkillSelector < 4 {
-                if opponentSkills[aiSkillSelector].affectsOpponent {
-                    playerNerfHealth = opponentSkills[aiSkillSelector].health
-                    playerNerfStamina = opponentSkills[aiSkillSelector].stamina
-                    playerNerfDamage = opponentSkills[aiSkillSelector].damage
-                    playerNerfDefense = opponentSkills[aiSkillSelector].defense
-                    playerNerfRegen = opponentSkills[aiSkillSelector].regen
-                    
-                    opponentCurrentHealth = opponentCurrentHealth - opponentSkills[aiSkillSelector].hpCost
-                    opponentCurrentStamina = opponentCurrentStamina - opponentSkills[aiSkillSelector].stCost
-                    opponentNerfTime = opponentSkills[aiSkillSelector].time
-                    
-                } else {
-                    opponentBuffHealth = opponentSkills[aiSkillSelector].health
-                    opponentBuffStamina = opponentSkills[aiSkillSelector].stamina
-                    opponentBuffDamage = opponentSkills[aiSkillSelector].damage
-                    opponentBuffDefense = opponentSkills[aiSkillSelector].defense
-                    opponentBuffRegen = opponentSkills[aiSkillSelector].regen
-                    
-                    opponentCurrentHealth = opponentCurrentHealth - opponentSkills[aiSkillSelector].hpCost
-                    opponentCurrentStamina = opponentCurrentStamina - opponentSkills[aiSkillSelector].stCost
-                    opponentBuffTime = opponentSkills[aiSkillSelector].time
-                    
-                }
+        
+        if aiSkillSelector < 4 {
+            if opponentSkills[aiSkillSelector].affectsOpponent {
+                playerNerfHealth = opponentSkills[aiSkillSelector].health
+                playerNerfStamina = opponentSkills[aiSkillSelector].stamina
+                playerNerfDamage = opponentSkills[aiSkillSelector].damage
+                playerNerfDefense = opponentSkills[aiSkillSelector].defense
+                playerNerfRegen = opponentSkills[aiSkillSelector].regen
+                
+                opponentCurrentHealth = opponentCurrentHealth - opponentSkills[aiSkillSelector].hpCost
+                opponentCurrentStamina = opponentCurrentStamina - opponentSkills[aiSkillSelector].stCost
+                opponentNerfTime = opponentSkills[aiSkillSelector].time
                 
             } else {
-                opponentBuffHealth = selectedItem!.health
-                opponentBuffStamina = selectedItem!.stamina
-                opponentBuffDamage = selectedItem!.damage
-                opponentBuffDefense = selectedItem!.defense
-                opponentBuffRegen = selectedItem!.regen
+                opponentBuffHealth = opponentSkills[aiSkillSelector].health
+                opponentBuffStamina = opponentSkills[aiSkillSelector].stamina
+                opponentBuffDamage = opponentSkills[aiSkillSelector].damage
+                opponentBuffDefense = opponentSkills[aiSkillSelector].defense
+                opponentBuffRegen = opponentSkills[aiSkillSelector].regen
                 
-                opponentBuffTime = 1
+                opponentCurrentHealth = opponentCurrentHealth - opponentSkills[aiSkillSelector].hpCost
+                opponentCurrentStamina = opponentCurrentStamina - opponentSkills[aiSkillSelector].stCost
+                opponentBuffTime = opponentSkills[aiSkillSelector].time
+                
             }
+            
+        } else {
+            opponentBuffHealth = selectedItem!.health
+            opponentBuffStamina = selectedItem!.stamina
+            opponentBuffDamage = selectedItem!.damage
+            opponentBuffDefense = selectedItem!.defense
+            opponentBuffRegen = selectedItem!.regen
+            
+            opponentBuffTime = 1
         }
         
         opponentCurrentDamage = opponentOriginalDamage + opponentBuffDamage + opponentNerfDamage
@@ -424,7 +430,7 @@ class BattleVC: UIViewController {
             damageRecieved = damageRecieved + netDamage
             battlePlayerTurn()
         }
-
+        
     }
     
     // Runs if the player wins.

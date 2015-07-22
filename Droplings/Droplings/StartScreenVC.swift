@@ -27,5 +27,9 @@ class StartScreenVC: UIViewController {
         settings.layer.cornerRadius = settings.bounds.height * 0.4
         
     }
+    
+    @IBAction func unwindToMainMenu(segue: UIStoryboardSegue) {
+        
+    }
 
 }

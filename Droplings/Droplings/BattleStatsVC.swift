@@ -22,8 +22,16 @@ class BattleStatsVC: UIViewController {
     @IBOutlet weak var staminaUsedLabel: UILabel!
     @IBOutlet weak var skillsUsedLabel: UILabel!
     
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var newBattleButton: UIView!
+    @IBOutlet weak var mainMenuButton: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        container.layer.cornerRadius = container.bounds.height * 0.4
+        newBattleButton.layer.cornerRadius = newBattleButton.bounds.height * 0.4
+        mainMenuButton.layer.cornerRadius = mainMenuButton.bounds.height * 0.4
         
         damageDealtLabel.text = "Damage Dealt: \(damageDealt)"
         damageRecievedLabel.text = "Damage Recieved: \(damageRecieved)"
