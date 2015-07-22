@@ -23,6 +23,9 @@
 		4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */; };
 		43D1C5051B5D9BDC0018D9ED /* BattleStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */; };
 		43D1C5071B5DB43F0018D9ED /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5061B5DB43F0018D9ED /* HelpVC.swift */; };
+		43D1C50A1B5DB9530018D9ED /* HelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */; };
+		43D1C50C1B5DBFCD0018D9ED /* HelpTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C50B1B5DBFCD0018D9ED /* HelpTopic.swift */; };
+		43D1C50E1B5DCC510018D9ED /* StartScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C50D1B5DCC510018D9ED /* StartScreenVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,9 @@
 		4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepSubVC.swift; sourceTree = "<group>"; };
 		43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleStatsVC.swift; sourceTree = "<group>"; };
 		43D1C5061B5DB43F0018D9ED /* HelpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelpVC.swift; path = ../HelpVC.swift; sourceTree = "<group>"; };
+		43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
+		43D1C50B1B5DBFCD0018D9ED /* HelpTopic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTopic.swift; sourceTree = "<group>"; };
+		43D1C50D1B5DCC510018D9ED /* StartScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,7 @@
 				4342848F1B5712C20018602E /* ShirtBase.swift */,
 				434284911B57149E0018602E /* ItemBase.swift */,
 				4307BC451B59A7950088ACA9 /* SkillBase.swift */,
+				43D1C50B1B5DBFCD0018D9ED /* HelpTopic.swift */,
 			);
 			name = "Base Classes";
 			sourceTree = "<group>";
@@ -120,11 +127,12 @@
 			isa = PBXGroup;
 			children = (
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
+				43D1C5081B5DB9310018D9ED /* Help Files */,
 				434284931B57195A0018602E /* Base Classes */,
 				434284981B5757B90018602E /* Battle Prep */,
 				4342849A1B575F8C0018602E /* BattleVC.swift */,
 				43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */,
-				43D1C5061B5DB43F0018D9ED /* HelpVC.swift */,
+				43D1C50D1B5DCC510018D9ED /* StartScreenVC.swift */,
 				4376F8BD1B549F080005987B /* Main.storyboard */,
 				4376F8C01B549F080005987B /* Images.xcassets */,
 				4376F8C21B549F080005987B /* LaunchScreen.xib */,
@@ -156,6 +164,15 @@
 				4376F8CE1B549F090005987B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		43D1C5081B5DB9310018D9ED /* Help Files */ = {
+			isa = PBXGroup;
+			children = (
+				43D1C5061B5DB43F0018D9ED /* HelpVC.swift */,
+				43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */,
+			);
+			name = "Help Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,10 +279,13 @@
 				4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */,
 				434284901B5712C20018602E /* ShirtBase.swift in Sources */,
 				434284971B573D7B0018602E /* BattlePrepTableViewCell.swift in Sources */,
+				43D1C50E1B5DCC510018D9ED /* StartScreenVC.swift in Sources */,
 				4376F8BA1B549F080005987B /* AppDelegate.swift in Sources */,
 				4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */,
+				43D1C50C1B5DBFCD0018D9ED /* HelpTopic.swift in Sources */,
 				4342849B1B575F8C0018602E /* BattleVC.swift in Sources */,
 				4342848E1B57103D0018602E /* HatBase.swift in Sources */,
+				43D1C50A1B5DB9530018D9ED /* HelpTableViewCell.swift in Sources */,
 				434284921B57149E0018602E /* ItemBase.swift in Sources */,
 				43D1C5071B5DB43F0018D9ED /* HelpVC.swift in Sources */,
 				43D1C5051B5D9BDC0018D9ED /* BattleStatsVC.swift in Sources */,
