@@ -21,10 +21,15 @@ class BattlePrepTableViewCell: UITableViewCell {
     @IBOutlet weak var stamina: UILabel!
     @IBOutlet weak var defense: UILabel!
     
+    @IBOutlet weak var highStatContainer: UIView!
+    @IBOutlet weak var lowStatContainer: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        highStatContainer.layer.cornerRadius = highStatContainer.bounds.height * 0.4
+        lowStatContainer.layer.cornerRadius = highStatContainer.bounds.height * 0.4
+        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

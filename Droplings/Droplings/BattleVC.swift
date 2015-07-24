@@ -233,13 +233,15 @@ class BattleVC: UIViewController {
         // Disables user interaction until the fade is complete.
         view.userInteractionEnabled = false
         fadeView.alpha = 0
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         
-        // Starts the fade when the view appears. Every time this timer finishes, it calls the function "fade".
         fadeTimer = NSTimer.scheduledTimerWithTimeInterval(0.025, target: self, selector: "fade", userInfo: nil, repeats: true)
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        
+//        // Starts the fade when the view appears. Every time this timer finishes, it calls the function "fade".
+//        fadeTimer = NSTimer.scheduledTimerWithTimeInterval(0.025, target: self, selector: "fade", userInfo: nil, repeats: true)
+//    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var statsVC = segue.destinationViewController as! BattleStatsVC
@@ -727,9 +729,6 @@ class BattleVC: UIViewController {
             opponentTurnTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "battleOpponentTurn", userInfo: nil, repeats: false)
         }
     }
-    
-    
-    
 }
 
 

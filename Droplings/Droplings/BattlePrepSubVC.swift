@@ -19,6 +19,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var battleButton: UIView!
     
     // Outlets for selectable buttons and their images.
+    @IBOutlet weak var dropButton: UIView!
     @IBOutlet weak var hatButton: UIView!
     @IBOutlet weak var shirtButton: UIView!
     @IBOutlet weak var itemButton: UIView!
@@ -27,6 +28,9 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var hatImage: UIImageView!
     @IBOutlet weak var shirtImage: UIImageView!
     @IBOutlet weak var itemImage: UIImageView!
+    
+    @IBOutlet weak var tableViewContainer: UIView!
+    @IBOutlet weak var selectContainer: UIView!
     
     // Variable that stores parent view controller, which is defined in BattlePrepVC.
     var parent: BattlePrepVC?
@@ -60,6 +64,16 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableViewContainer.layer.cornerRadius = 20
+        selectContainer.layer.cornerRadius = 20
+        
+        dropButton.layer.cornerRadius = dropButton.bounds.height * 0.4
+        hatButton.layer.cornerRadius = hatButton.bounds.height * 0.4
+        shirtButton.layer.cornerRadius = shirtButton.bounds.height * 0.4
+        itemButton.layer.cornerRadius = itemButton.bounds.height * 0.4
+        
+        battleButton.layer.cornerRadius = battleButton.bounds.height * 0.4
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -83,35 +97,35 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func selectOnlyDropling () {
-        parent!.playerDefenseLabel.text = "Def: \(selectedDropling!.defense)"
-        parent!.playerHealthLabel.text = "HP: \(selectedDropling!.health)"
-        parent!.playerStaminaLabel.text = "Sta: \(selectedDropling!.stamina)"
-        parent!.playerDamageLabel.text = "Dmg: \(selectedDropling!.damage)"
-        parent!.playerRegenLabel.text = "Rgn: \(selectedDropling!.regen)"
+        parent!.playerDefenseLabel.text = selectedDropling!.defense.description
+        parent!.playerHealthLabel.text = selectedDropling!.health.description
+        parent!.playerStaminaLabel.text = selectedDropling!.stamina.description
+        parent!.playerDamageLabel.text = selectedDropling!.damage.description
+        parent!.playerRegenLabel.text = selectedDropling!.regen.description
     }
     
     func selectDroplingAndHat () {
-        parent!.playerDefenseLabel.text = "Def: \(selectedDropling!.defense + selectedHat!.defense)"
-        parent!.playerHealthLabel.text = "HP: \(selectedDropling!.health + selectedHat!.health)"
-        parent!.playerStaminaLabel.text = "Sta: \(selectedDropling!.stamina + selectedHat!.stamina)"
-        parent!.playerDamageLabel.text = "Dmg: \(selectedDropling!.damage + selectedHat!.damage)"
-        parent!.playerRegenLabel.text = "Rgn: \(selectedDropling!.regen + selectedHat!.regen)"
+        parent!.playerDefenseLabel.text = "\(selectedDropling!.defense + selectedHat!.defense)"
+        parent!.playerHealthLabel.text = "\(selectedDropling!.health + selectedHat!.health)"
+        parent!.playerStaminaLabel.text = "\(selectedDropling!.stamina + selectedHat!.stamina)"
+        parent!.playerDamageLabel.text = "\(selectedDropling!.damage + selectedHat!.damage)"
+        parent!.playerRegenLabel.text = "\(selectedDropling!.regen + selectedHat!.regen)"
     }
     
     func selectDroplingAndShirt () {
-        parent!.playerDefenseLabel.text = "Def: \(selectedDropling!.defense + selectedShirt!.defense)"
-        parent!.playerHealthLabel.text = "HP: \(selectedDropling!.health + selectedShirt!.health)"
-        parent!.playerStaminaLabel.text = "Sta: \(selectedDropling!.stamina + selectedShirt!.stamina)"
-        parent!.playerDamageLabel.text = "Dmg: \(selectedDropling!.damage + selectedShirt!.damage)"
-        parent!.playerRegenLabel.text = "Rgn: \(selectedDropling!.regen + selectedShirt!.regen)"
+        parent!.playerDefenseLabel.text = "\(selectedDropling!.defense + selectedShirt!.defense)"
+        parent!.playerHealthLabel.text = "\(selectedDropling!.health + selectedShirt!.health)"
+        parent!.playerStaminaLabel.text = "\(selectedDropling!.stamina + selectedShirt!.stamina)"
+        parent!.playerDamageLabel.text = "\(selectedDropling!.damage + selectedShirt!.damage)"
+        parent!.playerRegenLabel.text = "\(selectedDropling!.regen + selectedShirt!.regen)"
     }
     
     func selectAll () {
-        parent!.playerDefenseLabel.text = "Def: \(selectedDropling!.defense + selectedHat!.defense + selectedShirt!.defense)"
-        parent!.playerHealthLabel.text = "HP: \(selectedDropling!.health + selectedHat!.health + selectedShirt!.health)"
-        parent!.playerStaminaLabel.text = "Sta: \(selectedDropling!.stamina + selectedHat!.stamina + selectedShirt!.stamina)"
-        parent!.playerDamageLabel.text = "Dmg: \(selectedDropling!.damage + selectedHat!.damage + selectedShirt!.damage)"
-        parent!.playerRegenLabel.text = "Rgn: \(selectedDropling!.regen + selectedHat!.regen + selectedShirt!.regen)"
+        parent!.playerDefenseLabel.text = "\(selectedDropling!.defense + selectedHat!.defense + selectedShirt!.defense)"
+        parent!.playerHealthLabel.text = "\(selectedDropling!.health + selectedHat!.health + selectedShirt!.health)"
+        parent!.playerStaminaLabel.text = "\(selectedDropling!.stamina + selectedHat!.stamina + selectedShirt!.stamina)"
+        parent!.playerDamageLabel.text = "\(selectedDropling!.damage + selectedHat!.damage + selectedShirt!.damage)"
+        parent!.playerRegenLabel.text = "\(selectedDropling!.regen + selectedHat!.regen + selectedShirt!.regen)"
     }
     
     
@@ -129,11 +143,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         } else {
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         }
         
         tableView.hidden = false
@@ -147,11 +161,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         } else {
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         }
         
         tableView.hidden = false
@@ -165,11 +179,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         } else {
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         }
         
         tableView.hidden = false
@@ -183,11 +197,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         } else {
             selectedIcon = sender.view
             selectedIcon?.layer.borderColor = UIColor.blackColor().CGColor
-            selectedIcon?.layer.borderWidth = 3
+            selectedIcon?.layer.borderWidth = 1
         }
         
         tableView.hidden = false
@@ -217,7 +231,15 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         // Recycle cells
         var cell = tableView.dequeueReusableCellWithIdentifier(cellReuse, forIndexPath: indexPath) as! BattlePrepTableViewCell;
         
+//        var accButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+//        accButton.setImage(UIImage(named: "Blue Dropling 1"), forState: UIControlState.Selected)
+//        
+//        accButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        
         // Configure the cell.
+        
+//        //cell.accessoryView = accButton
+        
         if selectedIcon?.tag == 0 {
             if indexPath == selectedCellDropling {
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark

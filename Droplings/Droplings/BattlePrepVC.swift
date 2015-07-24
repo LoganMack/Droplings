@@ -25,6 +25,9 @@ class BattlePrepVC: UIViewController {
     @IBOutlet weak var opponentDamageLabel: UILabel!
     @IBOutlet weak var opponentRegenLabel: UILabel!
     
+    @IBOutlet weak var userStatContainer: UIView!
+    @IBOutlet weak var opponentStatContainer: UIView!
+    
     var opponentDropling: Dropling = Dropling()
     
     
@@ -33,18 +36,21 @@ class BattlePrepVC: UIViewController {
         
         opponentDropling = Dropling(name: "Opponent", type: "Green", damage: Int(arc4random_uniform(12) + 1), defense: Int(arc4random_uniform(10) + 1), health: Int(arc4random_uniform(20) + 40), stamina: Int(arc4random_uniform(20) + 40), regen: Int(arc4random_uniform(5) + 1), image: "Green Dropling 1", imageHat: "", imageShirt: "", equipment: Item())
         
-        opponentDefenseLabel.text = "Def: \(opponentDropling.defense.description)"
-        opponentHealthLabel.text = "HP: \(opponentDropling.health.description)"
-        opponentStaminaLabel.text = "Sta: \(opponentDropling.stamina.description)"
-        opponentDamageLabel.text = "Dmg: \(opponentDropling.damage.description)"
-        opponentRegenLabel.text = "Rgn: \(opponentDropling.regen.description)"
+        userStatContainer.layer.cornerRadius = userStatContainer.bounds.height * 0.4
+        opponentStatContainer.layer.cornerRadius = opponentStatContainer.bounds.height * 0.4
+        
+        opponentDefenseLabel.text = opponentDropling.defense.description
+        opponentHealthLabel.text = opponentDropling.health.description
+        opponentStaminaLabel.text = opponentDropling.stamina.description
+        opponentDamageLabel.text = opponentDropling.damage.description
+        opponentRegenLabel.text = opponentDropling.regen.description
         
         var subVC: BattlePrepSubVC = childViewControllers[0] as! BattlePrepSubVC
         subVC.parent = subVC.parentViewController as? BattlePrepVC
         
     }
     
-    @IBAction func unwindToBattlePrep(segue: UIStoryboardSegue) {
+    @IBAction func unwindToBattlePrepSub(segue: UIStoryboardSegue) {
     }
     
 }
