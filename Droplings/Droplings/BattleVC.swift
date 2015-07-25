@@ -168,9 +168,14 @@ class BattleVC: UIViewController {
     
     @IBOutlet weak var actionContainer: UIView!
     @IBOutlet weak var itemContainer: UIView!
+    @IBOutlet weak var playerStatsContainer: UIView!
+    @IBOutlet weak var opponentStatsContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        playerStatsContainer.layer.cornerRadius = playerStatsContainer.frame.height * 0.4
+        opponentStatsContainer.layer.cornerRadius = opponentStatsContainer.frame.height * 0.4
         
         playerDroplingImage.image = UIImage(named: selectedDropling!.image)
         
@@ -205,11 +210,11 @@ class BattleVC: UIViewController {
         for var i = 0; i < playerSkills.count; ++i {
             skillNames[i].text = "  \(playerSkills[i].name) - HP: \(playerSkills[i].hpCost) - ST: \(playerSkills[i].stCost) - T: \(playerSkills[i].time)"
             skillImages[i].image = UIImage(named: playerSkills[i].image)
-            skillDamages[i].text = "Damage: \(playerSkills[i].damage)"
-            skillDefenses[i].text = "Defense: \(playerSkills[i].defense)"
-            skillHealths[i].text = "Health: \(playerSkills[i].health)"
-            skillStaminas[i].text = "Stamina: \(playerSkills[i].stamina)"
-            skillRegens[i].text = "Regen: \(playerSkills[i].regen)"
+            skillDamages[i].text = "\(playerSkills[i].damage)"
+            skillDefenses[i].text = "\(playerSkills[i].defense)"
+            skillHealths[i].text = "\(playerSkills[i].health)"
+            skillStaminas[i].text = "\(playerSkills[i].stamina)"
+            skillRegens[i].text = "\(playerSkills[i].regen)"
             
             if playerSkills[i].affectsOpponent == true {
                 skillNames[i].backgroundColor = UIColor.redColor()
@@ -219,11 +224,11 @@ class BattleVC: UIViewController {
         }
         
         itemImage.image = UIImage(named: selectedItem!.image)
-        itemDamage.text = "Damage: \(selectedItem!.damage.description)"
-        itemDefense.text = "Defense: \(selectedItem!.defense.description)"
-        itemHealth.text = "Health: \(selectedItem!.health.description)"
-        itemStamina.text = "Stamina: \(selectedItem!.stamina.description)"
-        itemRegen.text = "Regen: \(selectedItem!.regen.description)"
+        itemDamage.text = "\(selectedItem!.damage.description)"
+        itemDefense.text = "\(selectedItem!.defense.description)"
+        itemHealth.text = "\(selectedItem!.health.description)"
+        itemStamina.text = "\(selectedItem!.stamina.description)"
+        itemRegen.text = "\(selectedItem!.regen.description)"
         
         playerName.text = selectedDropling!.name
         opponentName.text = selectedOpponent!.name
@@ -260,7 +265,6 @@ class BattleVC: UIViewController {
             fadeView.alpha = fadeView.alpha + 0.005
         } else {
             fadeTimer.invalidate()
-            fadeView.backgroundColor = UIColor.whiteColor()
             fadeView.alpha = 1
             view.userInteractionEnabled = true
             
@@ -276,17 +280,17 @@ class BattleVC: UIViewController {
     
     func updateUI () {
         
-        playerDamage.text = "Dmg: \(playerCurrentDamage)"
-        playerDefense.text = "Def: \(playerCurrentDefense)"
-        playerRegen.text = "Rgn: \(playerCurrentRegen)"
-        playerHealth.text = "HP: \(playerCurrentHealth)/\(playerMaxHealth)"
-        playerStamina.text = "ST: \(playerCurrentStamina)/\(playerMaxStamina)"
+        playerDamage.text = "\(playerCurrentDamage)"
+        playerDefense.text = "\(playerCurrentDefense)"
+        playerRegen.text = "\(playerCurrentRegen)"
+        playerHealth.text = "\(playerCurrentHealth)/\(playerMaxHealth)"
+        playerStamina.text = "\(playerCurrentStamina)/\(playerMaxStamina)"
         
-        opponentDamage.text = "Dmg: \(opponentCurrentDamage)"
-        opponentDefense.text = "Def: \(opponentCurrentDefense)"
-        opponentRegen.text = "Rgn: \(opponentCurrentRegen)"
-        opponentHealth.text = "HP: \(opponentCurrentHealth)/\(opponentMaxHealth)"
-        opponentStamina.text = "ST: \(opponentCurrentStamina)/\(opponentMaxStamina)"
+        opponentDamage.text = "\(opponentCurrentDamage)"
+        opponentDefense.text = "\(opponentCurrentDefense)"
+        opponentRegen.text = "\(opponentCurrentRegen)"
+        opponentHealth.text = "\(opponentCurrentHealth)/\(opponentMaxHealth)"
+        opponentStamina.text = "\(opponentCurrentStamina)/\(opponentMaxStamina)"
         
     }
     
