@@ -1729,21 +1729,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Damage Dealt: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k73-na-QvS">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Damage Dealt: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k73-na-QvS">
+                                <rect key="frame" x="91.5" y="423" width="133.5" height="22.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Damage Recieved: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGh-UJ-0w8">
-                                <rect key="frame" x="0.0" y="0.0" width="159" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Skills Used: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipK-34-U0p">
-                                <rect key="frame" x="0.0" y="0.0" width="104.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Damage Recieved: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGh-UJ-0w8">
+                                <rect key="frame" x="77.5" y="477.5" width="161" height="22.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1821,9 +1815,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stamina Used: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWX-SV-G7N">
-                                <rect key="frame" x="0.0" y="0.0" width="127" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stamina Used: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWX-SV-G7N">
+                                <rect key="frame" x="368.5" y="477.5" width="128" height="22.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skills Used: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipK-34-U0p">
+                                <rect key="frame" x="380.5" y="422" width="103.5" height="22.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1831,12 +1831,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="R84-ej-a22" secondAttribute="centerY" constant="0.5" id="2M5-wZ-Pb6"/>
+                            <constraint firstItem="ZGh-UJ-0w8" firstAttribute="top" secondItem="k73-na-QvS" secondAttribute="bottom" constant="32" id="7Fb-Pg-10s"/>
                             <constraint firstItem="R84-ej-a22" firstAttribute="height" secondItem="ohv-y2-mF2" secondAttribute="height" multiplier="0.2" id="7Zj-Mp-ZBX"/>
+                            <constraint firstItem="ZGh-UJ-0w8" firstAttribute="centerX" secondItem="k73-na-QvS" secondAttribute="centerX" id="7or-t2-SXy"/>
                             <constraint firstAttribute="centerX" secondItem="R84-ej-a22" secondAttribute="centerX" id="JA2-8z-FTo"/>
+                            <constraint firstItem="k73-na-QvS" firstAttribute="centerX" secondItem="rhQ-RX-S3J" secondAttribute="centerX" id="QnD-17-btc"/>
                             <constraint firstItem="R84-ej-a22" firstAttribute="top" secondItem="IXV-O1-7hE" secondAttribute="bottom" constant="24" id="W5V-1l-ZJC"/>
+                            <constraint firstItem="ipK-34-U0p" firstAttribute="centerX" secondItem="nMV-sW-YRr" secondAttribute="centerX" constant="-9.75" id="ZdN-eQ-AL8"/>
                             <constraint firstItem="R84-ej-a22" firstAttribute="leading" secondItem="ohv-y2-mF2" secondAttribute="leading" constant="16" id="ana-iu-oyH"/>
                             <constraint firstAttribute="trailing" secondItem="R84-ej-a22" secondAttribute="trailing" constant="16" id="cwX-ia-u4x"/>
+                            <constraint firstItem="jWX-SV-G7N" firstAttribute="centerX" secondItem="ipK-34-U0p" secondAttribute="centerX" id="dEd-ai-PbR"/>
+                            <constraint firstItem="k73-na-QvS" firstAttribute="top" secondItem="R84-ej-a22" secondAttribute="bottom" constant="64" id="sSv-k6-Jgg"/>
                             <constraint firstItem="R84-ej-a22" firstAttribute="centerX" secondItem="IXV-O1-7hE" secondAttribute="centerX" id="sl3-3F-GIZ"/>
+                            <constraint firstItem="ipK-34-U0p" firstAttribute="centerY" secondItem="k73-na-QvS" secondAttribute="centerY" constant="-1" id="tZe-ze-57J"/>
+                            <constraint firstItem="jWX-SV-G7N" firstAttribute="centerY" secondItem="ZGh-UJ-0w8" secondAttribute="centerY" id="uny-jz-Vl3"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
