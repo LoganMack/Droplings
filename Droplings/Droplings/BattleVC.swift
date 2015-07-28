@@ -11,10 +11,10 @@ import UIKit
 class BattleVC: UIViewController {
     
     // Placeholder Skill variables. If this app is ever expanded upon, these will be replaced with something more dynamic.
-    let skills: [Skill] = [Skill(name: "Poison Spit", desc: "", damage: -1, defense: -1, health: -1, stamina: 0, regen: 0, time: 3, affectsOpponent: true, stCost: 18, hpCost: 0, image: "Blue Dropling 2"),
-        Skill(name: "Rock Wall", desc: "", damage: 0, defense: 5, health: 0, stamina: 0, regen: 0, time: 2, affectsOpponent: false, stCost: 12, hpCost: 0, image: "Blue Dropling 2"),
-        Skill(name: "Drain", desc: "", damage: 0, defense: -1, health: 0, stamina: -5, regen: 0, time: 1, affectsOpponent: true, stCost: 0, hpCost: 5, image: "Blue Dropling 2"),
-        Skill(name: "Rage", desc: "", damage: 4, defense: 1, health: 0, stamina: 0, regen: 0, time: 2, affectsOpponent: false, stCost: 10, hpCost: 5, image: "Blue Dropling 2")]
+    let skills: [Skill] = [Skill(name: "Poison Spit", desc: "", damage: -1, defense: -1, health: -1, stamina: 0, regen: 0, time: 3, affectsOpponent: true, stCost: 18, hpCost: 0, image: "Item"),
+        Skill(name: "Rock Wall", desc: "", damage: 0, defense: 5, health: 0, stamina: 0, regen: 0, time: 2, affectsOpponent: false, stCost: 12, hpCost: 0, image: "Item"),
+        Skill(name: "Drain", desc: "", damage: 0, defense: -1, health: 0, stamina: -5, regen: 0, time: 1, affectsOpponent: true, stCost: 0, hpCost: 5, image: "Item"),
+        Skill(name: "Rage", desc: "", damage: 4, defense: 1, health: 0, stamina: 0, regen: 0, time: 2, affectsOpponent: false, stCost: 10, hpCost: 5, image: "Item")]
     
     // Variables being passed in from BattlePrepSubVC.
     var selectedDropling: Dropling?
@@ -40,6 +40,7 @@ class BattleVC: UIViewController {
     // MARK: - BATTLE VARIABLES
     // Marking this because it's important to make it clear what is used during the battle itself. The battle code might get a bit convoluted, so this has to be organized.
     
+    // Variables used to pass stats about the battle to the BattleStatsVC.
     var victory = false
     var damageDealt = 0
     var damageRecieved = 0
@@ -62,12 +63,11 @@ class BattleVC: UIViewController {
     var playerOriginalDamage = 100
     var playerOriginalDefense = 100
     var playerOriginalRegen = 100
-    
     var opponentOriginalDamage = 100
     var opponentOriginalDefense = 100
     var opponentOriginalRegen = 100
     
-    // These variables store the current buff and nerf effects.
+    // These variables store the current buff and nerf effects for both players.
     var playerBuffHealth = 0
     var playerBuffStamina = 0
     var playerBuffDamage = 0
@@ -92,18 +92,21 @@ class BattleVC: UIViewController {
     var opponentNerfDefense = 0
     var opponentNerfRegen = 0
     
-    // Timers
+    // Timers for managing the battle and its animations.
     var playerAttackAnimationTimer = NSTimer()
     var opponentTurnTimer = NSTimer()
     var opponentAttackAnimationTimer = NSTimer()
+    var statShow1 = NSTimer()
+    var statShowNext2 = NSTimer()
+    var statShowNext3 = NSTimer()
     
-    // Max Health and Stamina
+    // Max Health and Stamina, used for health and stamina labels, and a couple of if checks.
     var playerMaxHealth = 0
     var playerMaxStamina = 0
     var opponentMaxHealth = 0
     var opponentMaxStamina = 0
     
-    // Basic Stats
+    // Basic Stats pulled from droplings passed to us from battle prep.
     var playerCurrentHealth = 100
     var playerCurrentStamina = 100
     var playerCurrentDamage = 100
@@ -116,10 +119,18 @@ class BattleVC: UIViewController {
     var opponentCurrentDefense = 100
     var opponentCurrentRegen = 100
     
+    // Variable used to select a skill for the AI to use.
     var aiSkillSelector = 0
     
-    var preventEndlessLoop = 50
+    // Used to prevent an endless loop when choosing a skill for the AI.
+    var preventEndlessLoop = 3
     
+    // Used during animations to determine which image to animate.
+    var playerTurn = false
+    
+    
+    
+    // MARK: - @IBOutlets
     // Battle UI Outlets
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var opponentName: UILabel!
@@ -138,6 +149,8 @@ class BattleVC: UIViewController {
     
     @IBOutlet weak var playerDroplingImage: UIImageView!
     @IBOutlet weak var opponentDroplingImage: UIImageView!
+    @IBOutlet weak var playerHat: UIImageView!
+    @IBOutlet weak var playerShirt: UIImageView!
     
     @IBOutlet weak var playerSkill1: UIImageView!
     @IBOutlet weak var playerSkill2: UIImageView!
@@ -166,88 +179,136 @@ class BattleVC: UIViewController {
     @IBOutlet weak var itemStamina: UILabel!
     @IBOutlet weak var itemRegen: UILabel!
     
+    // Outlets for various containers, used to give them rounded edges, and to hide them at certain points.
     @IBOutlet weak var actionContainer: UIView!
     @IBOutlet weak var itemContainer: UIView!
     @IBOutlet weak var playerStatsContainer: UIView!
     @IBOutlet weak var opponentStatsContainer: UIView!
+    @IBOutlet weak var skill1Container: UIView!
+    @IBOutlet weak var skill2Container: UIView!
+    @IBOutlet weak var skill3Container: UIView!
+    @IBOutlet weak var skill4Container: UIView!
+    @IBOutlet weak var attackContainer: UIView!
+    @IBOutlet weak var battleActionContainer: UIView!
+    
+    // Used when showing the user how much damage the attacker is doing, and how much of it the defender is blocking.
+    @IBOutlet weak var userActionImage: UIImageView!
+    @IBOutlet weak var opponentActionImage: UIImageView!
+    @IBOutlet weak var userActionLabel: UILabel!
+    @IBOutlet weak var opponentActionLabel: UILabel!
+    @IBOutlet weak var middleActionLabel: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // These make sure the lower half of the view is blank until we decide who goes first.
+        actionContainer.hidden = true
+        userActionImage.image = nil
+        opponentActionImage.image = nil
+        userActionLabel.text = "??"
+        opponentActionLabel.text = "??"
+        middleActionLabel.text = ""
+        battleActionContainer.hidden = false
+        battleActionContainer.hidden = false
+        
+        // Here we give everything some rounded corners.
+        skill1Container.layer.cornerRadius = skill1Container.frame.height * 0.2
+        skill2Container.layer.cornerRadius = skill2Container.frame.height * 0.2
+        skill3Container.layer.cornerRadius = skill3Container.frame.height * 0.2
+        skill4Container.layer.cornerRadius = skill4Container.frame.height * 0.2
+        itemContainer.layer.cornerRadius = itemContainer.frame.height * 0.2
+        attackContainer.layer.cornerRadius = attackContainer.frame.height * 0.2
         playerStatsContainer.layer.cornerRadius = playerStatsContainer.frame.height * 0.4
         opponentStatsContainer.layer.cornerRadius = opponentStatsContainer.frame.height * 0.4
         
+        // Now we set the player's image to their selected dropling's image, and give it a hat and shirt too.
         playerDroplingImage.image = UIImage(named: selectedDropling!.image)
+        playerHat.image = UIImage(named: selectedHat!.image)
+        playerShirt.image = UIImage(named: selectedShirt!.image)
         
+        // Now we make sure we store the original values for dmg, def, and rgn for both players. For later use.
         playerOriginalDamage = selectedDropling!.damage
         playerOriginalDefense = selectedDropling!.defense
         playerOriginalRegen = selectedDropling!.regen
-        
         opponentOriginalDamage = selectedOpponent!.damage
         opponentOriginalDefense = selectedOpponent!.defense
         opponentOriginalRegen = selectedOpponent!.regen
         
+        // We do the same with health and stamina, for use as a max health and max stamina limit.
         playerMaxHealth = selectedDropling!.health
         playerMaxStamina = selectedDropling!.stamina
         opponentMaxHealth = selectedOpponent!.health
         opponentMaxStamina = selectedOpponent!.stamina
         
+        // Now we grab all of our starter values and give them to our current variables as well. Except for stamina, because the players always start with no stamina.
         playerCurrentHealth = playerMaxHealth
-        playerCurrentStamina = playerMaxStamina
+        playerCurrentStamina = 0
         playerCurrentDamage = playerOriginalDamage
         playerCurrentDefense = playerOriginalDefense
         playerCurrentRegen = playerOriginalRegen
-        
         opponentCurrentHealth = opponentMaxHealth
-        opponentCurrentStamina = opponentMaxStamina
+        opponentCurrentStamina = 0
         opponentCurrentDamage = opponentOriginalDamage
         opponentCurrentDefense = opponentOriginalDefense
         opponentCurrentRegen = opponentOriginalRegen
         
+        // -PLACEHOLDER- Gives the players skills to use.
         playerSkills = skills
         opponentSkills = skills
         
+        // These set the background colors of the skill selectors to red if they affect the opponent.
+        if playerSkills[0].affectsOpponent {
+            skill1Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+        }
+        
+        if playerSkills[1].affectsOpponent {
+            skill2Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+        }
+        
+        if playerSkills[2].affectsOpponent {
+            skill3Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+        }
+        
+        if playerSkills[3].affectsOpponent {
+            skill4Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+        }
+        
+        // Here we grab the player's skills and give their info to the skill selectors.
         for var i = 0; i < playerSkills.count; ++i {
-            skillNames[i].text = "  \(playerSkills[i].name) - HP: \(playerSkills[i].hpCost) - ST: \(playerSkills[i].stCost) - T: \(playerSkills[i].time)"
+            skillNames[i].text = "\(playerSkills[i].name) - HP: \(playerSkills[i].hpCost) - ST: \(playerSkills[i].stCost) - T: \(playerSkills[i].time)"
             skillImages[i].image = UIImage(named: playerSkills[i].image)
             skillDamages[i].text = "\(playerSkills[i].damage)"
             skillDefenses[i].text = "\(playerSkills[i].defense)"
             skillHealths[i].text = "\(playerSkills[i].health)"
             skillStaminas[i].text = "\(playerSkills[i].stamina)"
             skillRegens[i].text = "\(playerSkills[i].regen)"
-            
-            if playerSkills[i].affectsOpponent == true {
-                skillNames[i].backgroundColor = UIColor.redColor()
-            } else {
-                skillNames[i].backgroundColor = UIColor.blueColor()
-            }
         }
         
-        itemImage.image = UIImage(named: selectedItem!.image)
+        // Same with the skills, we grab the item's info and give it to the item selector.
+        //itemImage.image = UIImage(named: selectedItem!.image)
         itemDamage.text = "\(selectedItem!.damage.description)"
         itemDefense.text = "\(selectedItem!.defense.description)"
         itemHealth.text = "\(selectedItem!.health.description)"
         itemStamina.text = "\(selectedItem!.stamina.description)"
         itemRegen.text = "\(selectedItem!.regen.description)"
         
+        // Now we set the names of the player and the opponent to their dropling's names.
         playerName.text = selectedDropling!.name
         opponentName.text = selectedOpponent!.name
         
         updateUI()
         
-        // Disables user interaction until the fade is complete.
+        // Disables user interaction until the fade-in animation is complete.
         view.userInteractionEnabled = false
         fadeView.alpha = 0
         
+        // Starts a timer which starts the fade-in animation and repeats until the fade-in animation is complete.
         fadeTimer = NSTimer.scheduledTimerWithTimeInterval(0.025, target: self, selector: "fade", userInfo: nil, repeats: true)
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        
-//        // Starts the fade when the view appears. Every time this timer finishes, it calls the function "fade".
-//        fadeTimer = NSTimer.scheduledTimerWithTimeInterval(0.025, target: self, selector: "fade", userInfo: nil, repeats: true)
-//    }
-    
+    // Segway used to transfer data over to BattleStatsVC. This is triggered when the battle ends, and BattleStatsVC displays the stats from the battle.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var statsVC = segue.destinationViewController as! BattleStatsVC
         
@@ -257,6 +318,8 @@ class BattleVC: UIViewController {
         statsVC.staminaUsed = staminaUsed
         statsVC.skillsUsed = skillsUsed
     }
+    
+    
     
     // MARK: - CUSTOM FUNCTIONS
     /// This function fades the view from black to white.
@@ -278,7 +341,23 @@ class BattleVC: UIViewController {
         }
     }
     
+    // This function updates the basic stats UI for both players.
     func updateUI () {
+        if playerCurrentHealth < 0 {
+            playerCurrentHealth = 0
+        }
+        
+        if playerCurrentStamina < 0 {
+            playerCurrentStamina = 0
+        }
+        
+        if opponentCurrentHealth < 0 {
+            opponentCurrentHealth = 0
+        }
+        
+        if opponentCurrentStamina < 0 {
+            opponentCurrentStamina = 0
+        }
         
         playerDamage.text = "\(playerCurrentDamage)"
         playerDefense.text = "\(playerCurrentDefense)"
@@ -294,11 +373,12 @@ class BattleVC: UIViewController {
         
     }
     
-    // Runs when it is the player's turn.
+    // This function runs when it is the player's turn.
     func battlePlayerTurn () {
         
         view.userInteractionEnabled = false
         actionContainer.hidden = false
+        battleActionContainer.hidden = true
         updateUI()
         
         if opponentCurrentHealth <= 0 {
@@ -374,7 +454,7 @@ class BattleVC: UIViewController {
                 opponentSkillSelector()
             }
         } else {
-            preventEndlessLoop = 50
+            preventEndlessLoop = 3
             opponentAttack()
         }
     }
@@ -420,22 +500,153 @@ class BattleVC: UIViewController {
         opponentCurrentDefense = opponentOriginalDefense + opponentBuffDefense + opponentNerfDefense
         opponentCurrentRegen = opponentOriginalRegen + opponentBuffRegen + opponentNerfRegen
         
-        var opponentAttackValue = Int(arc4random_uniform(10)) + opponentCurrentDamage
-        var playerDefenseValue = Int(arc4random_uniform(10)) + playerCurrentDefense
+        var opponentAttackValue = Int(arc4random_uniform(15)) + opponentCurrentDamage
+        var playerDefenseValue = Int(arc4random_uniform(15)) + playerCurrentDefense
         
         var netDamage = opponentAttackValue - playerDefenseValue
+        
+        updateUI()
         
         println("OPPONENT ATTACK")
         println(opponentAttackValue)
         println(playerDefenseValue)
         
+        playerTurn = false
+        userActionImage.image = nil
+        opponentActionImage.image = nil
+        userActionLabel.text = "??"
+        opponentActionLabel.text = "??"
+        middleActionLabel.text = ""
+        
         if netDamage <= 0 {
-            battlePlayerTurn()
+            battleActionContainer.hidden = false
+            
+            var array = [playerDefenseValue, opponentAttackValue]
+            
+            statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
+            
+            //battlePlayerTurn()
+            
         } else {
             playerCurrentHealth = playerCurrentHealth - netDamage
             damageRecieved = damageRecieved + netDamage
+            
+            battleActionContainer.hidden = false
+            
+            var array = [playerDefenseValue, opponentAttackValue]
+            
+            statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
+            
+            //battlePlayerTurn()
+        }
+        
+    }
+    
+    func statShow (timer: NSTimer) {
+        
+        var array: [Int] = []
+        
+        if playerTurn {
+            userActionImage.image = UIImage(named: "attack")
+            opponentActionImage.image = UIImage(named: "defense")
+            
+            array = timer.userInfo as! [Int]
+            
+            userActionLabel.text = array[0].description
+            opponentActionLabel.text = array[1].description
+            
+            middleActionLabel.text = ">"
+            
+        } else {
+            userActionImage.image = UIImage(named: "defense")
+            opponentActionImage.image = UIImage(named: "attack")
+            
+            array = timer.userInfo as! [Int]
+            
+            userActionLabel.text = array[0].description
+            opponentActionLabel.text = array[1].description
+            
+            middleActionLabel.text = "<"
+        }
+        
+        //        var playerAnimateDropling = CALayer()
+        //        var playerAnimateDroplingImage = UIImage(named: selectedDropling!.image)
+        //
+        //        playerAnimateDropling.contents = playerAnimateDroplingImage?.CGImage
+        //        playerAnimateDropling.contentsGravity = kCAGravityResizeAspect
+        //        playerAnimateDropling.contentsScale = UIScreen.mainScreen().scale
+        //        playerAnimateDropling.frame = playerDroplingImage.frame
+        //
+        //        self.view.layer.addSublayer(playerAnimateDropling)
+        //
+        //        var animation = CABasicAnimation(keyPath: "playerAttack")
+        //        animation.fromValue = playerAnimateDropling.position.x
+        //        animation.toValue = opponentDroplingImage.layer.position.x
+        //        animation.repeatCount = 1
+        //        animation.duration = 3
+        //
+        //        playerAnimateDropling.addAnimation(animation, forKey: "playerAttack")
+        
+        var imageLocation = self.playerDroplingImage.frame
+        var imageOpponentLocation = self.opponentDroplingImage.frame
+        
+        if playerTurn {
+            
+            UIView.animateWithDuration(1, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                
+                self.playerDroplingImage.frame = self.opponentDroplingImage.frame
+                self.playerHat.frame = self.opponentDroplingImage.frame
+                self.playerShirt.frame = self.opponentDroplingImage.frame
+                
+                }, completion: {finished in UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                    self.playerDroplingImage.frame = imageLocation
+                    self.playerHat.frame = imageLocation
+                    self.playerShirt.frame = imageLocation}, completion: nil)})
+            
+        } else {
+            
+            UIView.animateWithDuration(1, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                
+                self.opponentDroplingImage.frame = self.playerDroplingImage.frame
+                
+                }, completion: {finished in UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {self.opponentDroplingImage.frame = imageOpponentLocation}, completion: nil)})
+        }
+        
+        statShowNext2 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow2:", userInfo: array, repeats: false)
+    }
+    
+    func statShow2 (timer: NSTimer) {
+        
+        var array: [Int] = []
+        
+        array = timer.userInfo as! [Int]
+        
+        userActionLabel.text = "\(array[0] - array[1])"
+        opponentActionLabel.text = "\(array[1] - array[0])"
+        
+        if array[0] - array[1] < 0 {
+            userActionLabel.text = "0"
+        }
+        
+        if array[1] - array[0] < 0 {
+            opponentActionLabel.text = "0"
+        }
+        
+        updateUI()
+        
+        statShowNext3 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow3", userInfo: nil, repeats: false)
+    }
+    
+    func statShow3 () {
+        
+        updateUI()
+        
+        if playerTurn {
+            battleOpponentTurn()
+        } else {
             battlePlayerTurn()
         }
+        
         
     }
     
@@ -471,7 +682,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 0
             
         } else {
@@ -483,7 +694,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 0
             
         }
@@ -506,7 +717,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 1
             
         } else {
@@ -518,7 +729,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 1
             
         }
@@ -541,7 +752,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 2
             
         } else {
@@ -553,7 +764,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 2
             
         }
@@ -576,7 +787,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 3
             
         } else {
@@ -588,7 +799,7 @@ class BattleVC: UIViewController {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
             
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 3
             
         }
@@ -606,14 +817,14 @@ class BattleVC: UIViewController {
             selectedAttack = sender.view
             
             selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 4
             
         } else {
             selectedAttack = sender.view
             
             selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
-            selectedAttack?.layer.borderWidth = 3
+            selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 4
             
         }
@@ -653,8 +864,8 @@ class BattleVC: UIViewController {
                 ++skillsUsed
                 
             } else {
-                playerBuffHealth = selectedItem!.health
-                playerBuffStamina = selectedItem!.stamina
+                playerCurrentHealth = playerCurrentHealth + selectedItem!.health
+                playerCurrentStamina = playerCurrentStamina + selectedItem!.stamina
                 playerBuffDamage = selectedItem!.damage
                 playerBuffDefense = selectedItem!.defense
                 playerBuffRegen = selectedItem!.regen
@@ -669,14 +880,22 @@ class BattleVC: UIViewController {
         playerCurrentDefense = playerOriginalDefense + playerBuffDefense + playerNerfDefense
         playerCurrentRegen = playerOriginalRegen + playerBuffRegen + playerNerfRegen
         
-        var playerAttackValue = Int(arc4random_uniform(10)) + playerCurrentDamage
-        var opponentDefenseValue = Int(arc4random_uniform(10)) + opponentCurrentDefense
+        var playerAttackValue = Int(arc4random_uniform(15)) + playerCurrentDamage
+        var opponentDefenseValue = Int(arc4random_uniform(15)) + opponentCurrentDefense
         
         var netDamage = playerAttackValue - opponentDefenseValue
+        
+        updateUI()
         
         println("PLAYER ATTACK")
         println(playerAttackValue)
         println(opponentDefenseValue)
+        
+        userActionImage.image = nil
+        opponentActionImage.image = nil
+        userActionLabel.text = "??"
+        opponentActionLabel.text = "??"
+        middleActionLabel.text = ""
         
         if netDamage <= 0 {
             if opponentBuffTime > 0 || opponentNerfTime > 0 {
@@ -700,12 +919,24 @@ class BattleVC: UIViewController {
                 opponentCurrentHealth = opponentMaxHealth
             }
             
-            updateUI()
             actionContainer.hidden = true
-            opponentTurnTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "battleOpponentTurn", userInfo: nil, repeats: false)
+            
+            userActionImage.image = nil
+            opponentActionImage.image = nil
+            userActionLabel.text = "??"
+            opponentActionLabel.text = "??"
+            middleActionLabel.text = ""
+            battleActionContainer.hidden = false
+            
+            var array = [playerAttackValue, opponentDefenseValue]
+            
+            playerTurn = true
+            
+            updateUI()
+            
+            statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
+            
         } else {
-            opponentCurrentHealth = opponentCurrentHealth - netDamage
-            damageDealt = damageDealt + netDamage
             
             if opponentBuffTime > 0 || opponentNerfTime > 0 {
                 opponentCurrentHealth = opponentCurrentHealth + opponentBuffHealth + opponentNerfHealth
@@ -728,9 +959,25 @@ class BattleVC: UIViewController {
                 opponentCurrentHealth = opponentMaxHealth
             }
             
-            updateUI()
             actionContainer.hidden = true
-            opponentTurnTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "battleOpponentTurn", userInfo: nil, repeats: false)
+            
+            userActionImage.image = nil
+            opponentActionImage.image = nil
+            userActionLabel.text = "??"
+            opponentActionLabel.text = "??"
+            middleActionLabel.text = ""
+            battleActionContainer.hidden = false
+            
+            var array = [playerAttackValue, opponentDefenseValue]
+            
+            playerTurn = true
+            
+            updateUI()
+            
+            opponentCurrentHealth = opponentCurrentHealth - netDamage
+            damageDealt = damageDealt + netDamage
+            
+            statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
         }
     }
 }

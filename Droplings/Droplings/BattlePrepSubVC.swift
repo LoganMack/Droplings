@@ -52,13 +52,16 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     // MARK: - PLACEHOLDER VARIABLES
     // If this app is ever expanded, these variables will need to be replaced with something more dynamic.
-    let droplings: [Dropling] = [Dropling(name: "Blue", type: "Blue", damage: 8, defense: 1, health: 30, stamina: 30, regen: 3, image: "Blue Dropling 1", imageHat: "", imageShirt: "", equipment: Item()), Dropling(name: "Hershey", type: "Yellow", damage: 5, defense: 5, health: 25, stamina: 35, regen: 2, image: "Leafy Dropling 1", imageHat: "", imageShirt: "", equipment: Item()), Dropling(name: "The Rock", type: "Orange", damage: 8, defense: 8, health: 40, stamina: 40, regen: 5, image: "Molten Dropling 1", imageHat: "", imageShirt: "", equipment: Item())]
+    let droplings: [Dropling] = [
+        Dropling(name: "Blue", type: "Blue", damage: 18, defense: 10, health: 30, stamina: 55, regen: 9, image: "Blue Dropling 1", imageHat: "", imageShirt: "", equipment: Item()),
+        Dropling(name: "Hershey", type: "Yellow", damage: 12, defense: 12, health: 58, stamina: 30, regen: 7, image: "Leafy Dropling 1", imageHat: "", imageShirt: "", equipment: Item()),
+        Dropling(name: "The Rock", type: "Orange", damage: 22, defense: 9, health: 33, stamina: 75, regen: 15, image: "Molten Dropling 1", imageHat: "", imageShirt: "", equipment: Item())]
     
-    let hats: [Hat] = [Hat(name: "Wizard Cap", desc: "", damage: 0, defense: 0, health: 0, stamina: 5, regen: 1, image: "Blue Dropling 2"), Hat(name: "Fez", desc: "", damage: -1, defense: 2, health: 5, stamina: 0, regen: 0, image: "Blue Dropling 2")]
+    let hats: [Hat] = [Hat(name: "Ho Ho Hat", desc: "", damage: 0, defense: 0, health: 0, stamina: 5, regen: 1, image: "Ho Ho Hat")]
     
-    let shirts: [Shirt] = [Shirt(name: "Flora", desc: "", damage: 2, defense: -1, health: 10, stamina: 0, regen: 0, image: "Yellow Dropling 2"), Shirt(name: "Spiked", desc: "", damage: 3, defense: 1, health: 0, stamina: 0, regen: -1, image: "Yellow Dropling 2"), Shirt(name: "Steel", desc: "", damage: -2, defense: 6, health: 5, stamina: -5, regen: 0, image: "Yellow Dropling 2")]
+    let shirts: [Shirt] = [Shirt(name: "Captain Freedom", desc: "", damage: 2, defense: -1, health: 10, stamina: 0, regen: 0, image: "Captain Freedom"), Shirt(name: "Plank Armor", desc: "", damage: 3, defense: 1, health: 0, stamina: 0, regen: -1, image: "Plank Armor"), Shirt(name: "Steel", desc: "", damage: -2, defense: 6, health: 5, stamina: -5, regen: 0, image: "Steel")]
     
-    let items: [Item] = [Item(name: "Medallion of Strength", desc: "", damage: 5, defense: 0, health: 0, stamina: 0, regen: 0, image: "Orange Dropling 2"), Item(name: "Balance Pin", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 1, image: "Orange Dropling 2"), Item(name: "Pet Rock", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Orange Dropling 2"), Item(name: "Ice Orb", desc: "", damage: 0, defense: 2, health: 0, stamina: 5, regen: 2, image: "Orange Dropling 2")]
+    let items: [Item] = [Item(name: "Medallion of Strength", desc: "", damage: 5, defense: 0, health: 0, stamina: 0, regen: 0, image: "Item"), Item(name: "Balance Pin", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 1, image: "Item"), Item(name: "Pet Rock", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Item"), Item(name: "Ice Orb", desc: "", damage: 0, defense: 2, health: 0, stamina: 5, regen: 2, image: "Item")]
     
     
     
@@ -332,6 +335,8 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else if selectedIcon?.tag == 1 {
             selectedCellHat = indexPath
             selectedHat = hats[indexPath.row]
+            hatImage.image = UIImage(named: selectedHat!.image)
+            parent?.playerHat.image = UIImage(named: selectedHat!.image)
             
             if selectedHat != nil && selectedShirt != nil {
                 selectAll()
@@ -351,6 +356,8 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else if selectedIcon?.tag == 2 {
             selectedCellShirt = indexPath
             selectedShirt = shirts[indexPath.row]
+            shirtImage.image = UIImage(named: selectedShirt!.image)
+            parent?.playerShirt.image = UIImage(named: selectedShirt!.image)
             
             if selectedHat != nil && selectedShirt != nil {
                 selectAll()
@@ -370,6 +377,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else if selectedIcon?.tag == 3 {
             selectedCellItem = indexPath
             selectedItem = items[indexPath.row]
+            itemImage.image = UIImage(named: selectedItem!.image)
             
             checkBattle()
             

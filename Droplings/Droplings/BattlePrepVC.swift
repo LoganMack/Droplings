@@ -28,13 +28,18 @@ class BattlePrepVC: UIViewController {
     @IBOutlet weak var userStatContainer: UIView!
     @IBOutlet weak var opponentStatContainer: UIView!
     
+    @IBOutlet weak var playerShirt: UIImageView!
+    @IBOutlet weak var opponentShirt: UIImageView!
+    @IBOutlet weak var playerHat: UIImageView!
+    @IBOutlet weak var opponentHat: UIImageView!
+    
     var opponentDropling: Dropling = Dropling()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        opponentDropling = Dropling(name: "Opponent", type: "Green", damage: Int(arc4random_uniform(12) + 1), defense: Int(arc4random_uniform(10) + 1), health: Int(arc4random_uniform(20) + 40), stamina: Int(arc4random_uniform(20) + 40), regen: Int(arc4random_uniform(5) + 1), image: "Green Dropling 1", imageHat: "", imageShirt: "", equipment: Item())
+        opponentDropling = Dropling(name: "Opponent", type: "Green", damage: Int(arc4random_uniform(15) + 10), defense: Int(arc4random_uniform(10) + 10), health: Int(arc4random_uniform(30) + 40), stamina: Int(arc4random_uniform(30) + 40), regen: Int(arc4random_uniform(15) + 5), image: "Orange Dropling 1", imageHat: "", imageShirt: "", equipment: Item())
         
         userStatContainer.layer.cornerRadius = userStatContainer.bounds.height * 0.4
         opponentStatContainer.layer.cornerRadius = opponentStatContainer.bounds.height * 0.4

@@ -34,7 +34,7 @@ class BattleStatsVC: UIViewController {
         mainMenuButton.layer.cornerRadius = mainMenuButton.bounds.height * 0.4
         
         damageDealtLabel.text = "Damage Dealt: \(damageDealt)"
-        damageRecievedLabel.text = "Damage Recieved: \(damageRecieved)"
+        damageRecievedLabel.text = "Damage Taken: \(damageRecieved)"
         staminaUsedLabel.text = "Stamina Used: \(staminaUsed)"
         skillsUsedLabel.text = "Skills Used: \(skillsUsed)"
 
