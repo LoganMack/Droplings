@@ -20,6 +20,9 @@ class BattlePrepTableViewCell: UITableViewCell {
     @IBOutlet weak var regen: UILabel!
     @IBOutlet weak var stamina: UILabel!
     @IBOutlet weak var defense: UILabel!
+    @IBOutlet weak var healthCost: UILabel!
+    @IBOutlet weak var staminaCost: UILabel!
+    @IBOutlet weak var timeCost: UILabel!
     
     @IBOutlet weak var highStatContainer: UIView!
     @IBOutlet weak var lowStatContainer: UIView!

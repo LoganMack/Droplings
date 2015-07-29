@@ -101,6 +101,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     var statShowNext2 = NSTimer()
     var statShowNext3 = NSTimer()
     var bounceAnimationTimer = NSTimer()
+    var revertAttackTextTimer = NSTimer()
     
     // Max Health and Stamina, used for health and stamina labels, and a couple of if checks.
     var playerMaxHealth = 0
@@ -133,6 +134,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     var bounceAnimationNormal = true
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var attackSoundPlayer = AVAudioPlayer()
     
     
     
@@ -204,6 +207,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var opponentActionLabel: UILabel!
     @IBOutlet weak var middleActionLabel: UILabel!
     
+    @IBOutlet weak var attackButtonText: UILabel!
     
     
     override func viewDidLoad() {
@@ -219,6 +223,16 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
         appDelegate.avPlayer.play()
         
+        
+        let fileURLAttack: NSURL = NSBundle.mainBundle().URLForResource("Punch3", withExtension: "mp3")!
+        
+        attackSoundPlayer = AVAudioPlayer(contentsOfURL: fileURLAttack, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
+        
+        attackSoundPlayer.delegate = nil
+        attackSoundPlayer.prepareToPlay()
+        attackSoundPlayer.volume = 1.0
+        
+        
         bounceAnimationTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "bounceAnimation", userInfo: nil, repeats: true)
         
         // These make sure the lower half of the view is blank until we decide who goes first.
@@ -227,6 +241,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         opponentActionImage.image = nil
         userActionLabel.text = "??"
         opponentActionLabel.text = "??"
+        userActionLabel.hidden = true
+        opponentActionLabel.hidden = true
         middleActionLabel.text = ""
         battleActionContainer.hidden = false
         battleActionContainer.hidden = false
@@ -278,19 +294,19 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
         // These set the background colors of the skill selectors to red if they affect the opponent.
         if playerSkills[0].affectsOpponent {
-            skill1Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+            skill1Container.backgroundColor = UIColor(red: 255 / 255, green: 252 / 255, blue: 198 / 255, alpha: 1)
         }
         
         if playerSkills[1].affectsOpponent {
-            skill2Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+            skill2Container.backgroundColor = UIColor(red: 255 / 255, green: 252 / 255, blue: 198 / 255, alpha: 1)
         }
         
         if playerSkills[2].affectsOpponent {
-            skill3Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+            skill3Container.backgroundColor = UIColor(red: 255 / 255, green: 252 / 255, blue: 198 / 255, alpha: 1)
         }
         
         if playerSkills[3].affectsOpponent {
-            skill4Container.backgroundColor = UIColor(red: 255 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1)
+            skill4Container.backgroundColor = UIColor(red: 255 / 255, green: 252 / 255, blue: 198 / 255, alpha: 1)
         }
         
         // Here we grab the player's skills and give their info to the skill selectors.
@@ -394,15 +410,24 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     func bounceAnimation () {
         if bounceAnimationNormal {
             playerDroplingImage.image = UIImage(named: "\(selectedDropling!.image)-2")
+            playerHat.image = UIImage(named: "\(selectedHat!.image)-2")
+            playerShirt.image = UIImage(named: "\(selectedShirt!.image)-2")
             opponentDroplingImage.image = UIImage(named: "\(selectedOpponent!.image)-2")
             
             bounceAnimationNormal = false
         } else {
             playerDroplingImage.image = UIImage(named: "\(selectedDropling!.image)")
             opponentDroplingImage.image = UIImage(named: "\(selectedOpponent!.image)")
+            playerHat.image = UIImage(named: "\(selectedHat!.image)")
+            playerShirt.image = UIImage(named: "\(selectedShirt!.image)")
             
             bounceAnimationNormal = true
         }
+    }
+    
+    func revertAttackText () {
+        attackButtonText.text = "ATTACK"
+        attackContainer.userInteractionEnabled = true
     }
     
     // This function runs when it is the player's turn.
@@ -548,6 +573,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         opponentActionImage.image = nil
         userActionLabel.text = "??"
         opponentActionLabel.text = "??"
+        userActionLabel.hidden = true
+        opponentActionLabel.hidden = true
         middleActionLabel.text = ""
         
         if netDamage <= 0 {
@@ -581,6 +608,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         if playerTurn {
             userActionImage.image = UIImage(named: "attack")
             opponentActionImage.image = UIImage(named: "defense")
+            userActionLabel.hidden = false
+            opponentActionLabel.hidden = false
             
             array = timer.userInfo as! [Int]
             
@@ -592,6 +621,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         } else {
             userActionImage.image = UIImage(named: "defense")
             opponentActionImage.image = UIImage(named: "attack")
+            userActionLabel.hidden = false
+            opponentActionLabel.hidden = false
             
             array = timer.userInfo as! [Int]
             
@@ -630,6 +661,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     }
     
     func statShow2 (timer: NSTimer) {
+        
+        attackSoundPlayer.play()
         
         var array: [Int] = []
         
@@ -693,7 +726,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[0].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -705,7 +738,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[0].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -728,7 +761,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[1].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -740,7 +773,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[1].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -763,7 +796,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[2].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -775,7 +808,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[2].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -798,7 +831,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[3].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -810,7 +843,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             selectedAttack = sender.view
             
             if playerSkills[3].affectsOpponent == true {
-                selectedAttack?.layer.borderColor = UIColor.redColor().CGColor
+                selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
                 selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             }
@@ -832,14 +865,14 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             
             selectedAttack = sender.view
             
-            selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
+            selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 4
             
         } else {
             selectedAttack = sender.view
             
-            selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
+            selectedAttack?.layer.borderColor = UIColor.blueColor().CGColor
             selectedAttack?.layer.borderWidth = 2
             selectedAttackIndex = 4
             
@@ -851,6 +884,14 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             
             if selectedAttackIndex < 4 {
                 if playerSkills[selectedAttackIndex].stCost > playerCurrentStamina {
+                    attackButtonText.text = "Stamina too low!"
+                    attackContainer.userInteractionEnabled = false
+                    revertAttackTextTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "revertAttackText", userInfo: nil, repeats: false)
+                    return
+                } else if playerSkills[selectedAttackIndex].hpCost > playerCurrentHealth {
+                    attackButtonText.text = "Health too low!"
+                    attackContainer.userInteractionEnabled = false
+                    revertAttackTextTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "revertAttackText", userInfo: nil, repeats: false)
                     return
                 } else if playerSkills[selectedAttackIndex].affectsOpponent {
                     opponentNerfHealth = playerSkills[selectedAttackIndex].health
@@ -911,6 +952,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         opponentActionImage.image = nil
         userActionLabel.text = "??"
         opponentActionLabel.text = "??"
+        userActionLabel.hidden = true
+        opponentActionLabel.hidden = true
         middleActionLabel.text = ""
         
         if netDamage <= 0 {
@@ -941,6 +984,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             opponentActionImage.image = nil
             userActionLabel.text = "??"
             opponentActionLabel.text = "??"
+            userActionLabel.hidden = true
+            opponentActionLabel.hidden = true
             middleActionLabel.text = ""
             battleActionContainer.hidden = false
             
@@ -981,6 +1026,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             opponentActionImage.image = nil
             userActionLabel.text = "??"
             opponentActionLabel.text = "??"
+            userActionLabel.hidden = true
+            opponentActionLabel.hidden = true
             middleActionLabel.text = ""
             battleActionContainer.hidden = false
             

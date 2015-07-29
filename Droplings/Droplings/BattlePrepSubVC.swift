@@ -51,7 +51,9 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBOutlet weak var tableViewContainer: UIView!
     @IBOutlet weak var selectContainer: UIView!
+    @IBOutlet weak var textContainer: UIView!
     
+    @IBOutlet weak var helpText: UILabel!
     
     
     
@@ -63,11 +65,11 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         Dropling(name: "Hershey", type: "Yellow", damage: 12, defense: 12, health: 58, stamina: 30, regen: 7, image: "Leafy Dropling 1", imageHat: "", imageShirt: "", equipment: Item()),
         Dropling(name: "The Rock", type: "Orange", damage: 22, defense: 9, health: 33, stamina: 75, regen: 15, image: "Molten Dropling 1", imageHat: "", imageShirt: "", equipment: Item())]
     
-    let hats: [Hat] = [Hat(name: "Ho Ho Hat", desc: "", damage: 0, defense: 0, health: 0, stamina: 5, regen: 1, image: "Ho Ho Hat")]
+    let hats: [Hat] = [Hat(name: "Ho Ho Hat", desc: "", damage: 0, defense: 0, health: 10, stamina: 0, regen: 3, image: "Ho Ho Hat 1"), Hat(name: "Magical Wizard Cap", desc: "", damage: 0, defense: 0, health: 0, stamina: 10, regen: 3, image: "Magical Wizard Cap 1")]
     
-    let shirts: [Shirt] = [Shirt(name: "Captain Freedom", desc: "", damage: 2, defense: -1, health: 10, stamina: 0, regen: 0, image: "Captain Freedom"), Shirt(name: "Plank Armor", desc: "", damage: 3, defense: 1, health: 0, stamina: 0, regen: -1, image: "Plank Armor"), Shirt(name: "Steel", desc: "", damage: -2, defense: 6, health: 5, stamina: -5, regen: 0, image: "Steel")]
+    let shirts: [Shirt] = [Shirt(name: "Captain Freedom", desc: "", damage: 2, defense: -1, health: 10, stamina: 0, regen: 0, image: "Captain Freedom 1"), Shirt(name: "Plank Armor", desc: "", damage: 3, defense: 1, health: 0, stamina: 0, regen: -1, image: "Plank Armor 1"), Shirt(name: "Steel", desc: "", damage: -2, defense: 6, health: 5, stamina: -5, regen: 0, image: "Steel 1")]
     
-    let items: [Item] = [Item(name: "Medallion of Strength", desc: "", damage: 5, defense: 0, health: 0, stamina: 0, regen: 0, image: "Item"), Item(name: "Balance Pin", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 1, image: "Item"), Item(name: "Pet Rock", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Item"), Item(name: "Ice Orb", desc: "", damage: 0, defense: 2, health: 0, stamina: 5, regen: 2, image: "Item")]
+    let items: [Item] = [Item(name: "Blast Protection Goggles", desc: "", damage: 0, defense: 3, health: 5, stamina: 0, regen: -1, image: "Blast Protection Goggles"), Item(name: "Fake Mustache", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 0, image: "Fake Mustache"), Item(name: "Heroic Cape", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Red Hero Cape"), Item(name: "Rickety Old Sword", desc: "", damage: 6, defense: -3, health: 0, stamina: 0, regen: 0, image: "Rickety Old Sword"), Item(name: "Super Soda", desc: "", damage: 0, defense: 0, health: 0, stamina: 10, regen: 2, image: "Soda Can"), Item(name: "War Axe of Pain", desc: "", damage: 7, defense: 0, health: 0, stamina: 0, regen: -10, image: "War Axe of Pain")]
     
     
     
@@ -76,6 +78,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         tableViewContainer.layer.cornerRadius = 20
         selectContainer.layer.cornerRadius = 20
+        textContainer.layer.cornerRadius = 10
         
         dropButton.layer.cornerRadius = dropButton.bounds.height * 0.4
         hatButton.layer.cornerRadius = hatButton.bounds.height * 0.4
@@ -104,6 +107,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func checkBattle () {
         if selectedDropling != nil && selectedHat != nil && selectedShirt != nil && selectedItem != nil {
             battleButton.hidden = false
+            helpText.text = "You can now enter the battle, or continue changing your gear."
         }
     }
     
@@ -242,15 +246,6 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         // Recycle cells
         var cell = tableView.dequeueReusableCellWithIdentifier(cellReuse, forIndexPath: indexPath) as! BattlePrepTableViewCell;
         
-//        var accButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
-//        accButton.setImage(UIImage(named: "Blue Dropling 1"), forState: UIControlState.Selected)
-//        
-//        accButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-        
-        // Configure the cell.
-        
-//        //cell.accessoryView = accButton
-        
         if selectedIcon?.tag == 0 {
             if indexPath == selectedCellDropling {
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark
@@ -335,6 +330,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 hatButton.hidden = false
                 shirtButton.hidden = false
                 itemButton.hidden = false
+                helpText.text = "Now select a hat, shirt, and consumable item!"
                 selectOnlyDropling()
             }
             

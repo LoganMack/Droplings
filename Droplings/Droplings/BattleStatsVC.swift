@@ -70,6 +70,12 @@ class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
             appDelegate.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
             appDelegate.avPlayer.prepareToPlay()
             appDelegate.avPlayer.play()
+            
+        } else if let dVC = segue.destinationViewController as? StartScreenVC {
+            var fileURL: NSURL = NSBundle.mainBundle().URLForResource("MenuMusic", withExtension: "mp3")!
+            appDelegate.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
+            appDelegate.avPlayer.prepareToPlay()
+            appDelegate.avPlayer.play()
         }
     }
     
