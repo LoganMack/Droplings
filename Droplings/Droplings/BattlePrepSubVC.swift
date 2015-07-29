@@ -13,6 +13,26 @@ let cellReuse = "cellReuse"
 
 class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
+    // Variable that stores parent view controller, which is defined in BattlePrepVC.
+    var parent: BattlePrepVC?
+    
+    // Variable that contains the currently selected image.
+    var selectedIcon: UIView?
+    
+    var selectedDropling: Dropling?
+    var selectedHat: Hat?
+    var selectedShirt: Shirt?
+    var selectedItem: Item?
+    
+    var selectedCellDropling: NSIndexPath? = nil
+    var selectedCellHat: NSIndexPath? = nil
+    var selectedCellShirt: NSIndexPath? = nil
+    var selectedCellItem: NSIndexPath? = nil
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    
     // TableView outlet.
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,21 +52,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var tableViewContainer: UIView!
     @IBOutlet weak var selectContainer: UIView!
     
-    // Variable that stores parent view controller, which is defined in BattlePrepVC.
-    var parent: BattlePrepVC?
     
-    // Variable that contains the currently selected image.
-    var selectedIcon: UIView?
-    
-    var selectedDropling: Dropling?
-    var selectedHat: Hat?
-    var selectedShirt: Shirt?
-    var selectedItem: Item?
-    
-    var selectedCellDropling: NSIndexPath? = nil
-    var selectedCellHat: NSIndexPath? = nil
-    var selectedCellShirt: NSIndexPath? = nil
-    var selectedCellItem: NSIndexPath? = nil
     
     
     
@@ -88,6 +94,8 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         battleVC.selectedShirt = selectedShirt
         battleVC.selectedItem = selectedItem
         battleVC.selectedOpponent = parent?.opponentDropling
+        
+        appDelegate.avPlayer.stop()
     }
     
     

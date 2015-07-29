@@ -21,6 +21,13 @@
 		4376F8DA1B54A0640005987B /* BattlePrepVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8D91B54A0640005987B /* BattlePrepVC.swift */; };
 		4376F8DC1B54A4680005987B /* DroplingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DB1B54A4680005987B /* DroplingBase.swift */; };
 		4376F8DE1B54A9D50005987B /* BattlePrepSubVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */; };
+		439A9C281B693F70003958C0 /* Punch3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C271B693F70003958C0 /* Punch3.mp3 */; };
+		439A9C2A1B693F81003958C0 /* Click3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C291B693F81003958C0 /* Click3.mp3 */; };
+		439A9C2D1B693FA2003958C0 /* BattleMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */; };
+		439A9C2E1B693FA2003958C0 /* MenuMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */; };
+		439A9C301B693FD8003958C0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439A9C2F1B693FD8003958C0 /* AVFoundation.framework */; };
+		439A9C331B694C18003958C0 /* VictoryMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C311B694C18003958C0 /* VictoryMusic.mp3 */; };
+		439A9C341B694C18003958C0 /* LoseMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 439A9C321B694C18003958C0 /* LoseMusic.mp3 */; };
 		43D1C5051B5D9BDC0018D9ED /* BattleStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */; };
 		43D1C5071B5DB43F0018D9ED /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5061B5DB43F0018D9ED /* HelpVC.swift */; };
 		43D1C50A1B5DB9530018D9ED /* HelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */; };
@@ -58,6 +65,13 @@
 		4376F8D91B54A0640005987B /* BattlePrepVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepVC.swift; sourceTree = "<group>"; };
 		4376F8DB1B54A4680005987B /* DroplingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroplingBase.swift; sourceTree = "<group>"; };
 		4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepSubVC.swift; sourceTree = "<group>"; };
+		439A9C271B693F70003958C0 /* Punch3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Punch3.mp3; sourceTree = "<group>"; };
+		439A9C291B693F81003958C0 /* Click3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click3.mp3; sourceTree = "<group>"; };
+		439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BattleMusic.mp3; sourceTree = "<group>"; };
+		439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MenuMusic.mp3; sourceTree = "<group>"; };
+		439A9C2F1B693FD8003958C0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		439A9C311B694C18003958C0 /* VictoryMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = VictoryMusic.mp3; sourceTree = "<group>"; };
+		439A9C321B694C18003958C0 /* LoseMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LoseMusic.mp3; sourceTree = "<group>"; };
 		43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleStatsVC.swift; sourceTree = "<group>"; };
 		43D1C5061B5DB43F0018D9ED /* HelpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelpVC.swift; path = ../HelpVC.swift; sourceTree = "<group>"; };
 		43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
@@ -71,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439A9C301B693FD8003958C0 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +125,7 @@
 		4376F8AB1B549F080005987B = {
 			isa = PBXGroup;
 			children = (
+				439A9C2F1B693FD8003958C0 /* AVFoundation.framework */,
 				4376F8B61B549F080005987B /* Droplings */,
 				4376F8CC1B549F090005987B /* DroplingsTests */,
 				4376F8B51B549F080005987B /* Products */,
@@ -128,6 +144,12 @@
 		4376F8B61B549F080005987B /* Droplings */ = {
 			isa = PBXGroup;
 			children = (
+				439A9C311B694C18003958C0 /* VictoryMusic.mp3 */,
+				439A9C321B694C18003958C0 /* LoseMusic.mp3 */,
+				439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */,
+				439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */,
+				439A9C291B693F81003958C0 /* Click3.mp3 */,
+				439A9C271B693F70003958C0 /* Punch3.mp3 */,
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
 				43D1C5081B5DB9310018D9ED /* Help Files */,
 				434284931B57195A0018602E /* Base Classes */,
@@ -259,8 +281,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4376F8BF1B549F080005987B /* Main.storyboard in Resources */,
+				439A9C281B693F70003958C0 /* Punch3.mp3 in Resources */,
+				439A9C2A1B693F81003958C0 /* Click3.mp3 in Resources */,
 				4376F8C41B549F080005987B /* LaunchScreen.xib in Resources */,
+				439A9C2D1B693FA2003958C0 /* BattleMusic.mp3 in Resources */,
+				439A9C2E1B693FA2003958C0 /* MenuMusic.mp3 in Resources */,
+				439A9C341B694C18003958C0 /* LoseMusic.mp3 in Resources */,
 				4376F8C11B549F080005987B /* Images.xcassets in Resources */,
+				439A9C331B694C18003958C0 /* VictoryMusic.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class BattleVC: UIViewController {
+class BattleVC: UIViewController, AVAudioPlayerDelegate {
     
     // Placeholder Skill variables. If this app is ever expanded upon, these will be replaced with something more dynamic.
     let skills: [Skill] = [Skill(name: "Poison Spit", desc: "", damage: -1, defense: -1, health: -1, stamina: 0, regen: 0, time: 3, affectsOpponent: true, stCost: 18, hpCost: 0, image: "Item"),
@@ -99,6 +100,7 @@ class BattleVC: UIViewController {
     var statShow1 = NSTimer()
     var statShowNext2 = NSTimer()
     var statShowNext3 = NSTimer()
+    var bounceAnimationTimer = NSTimer()
     
     // Max Health and Stamina, used for health and stamina labels, and a couple of if checks.
     var playerMaxHealth = 0
@@ -127,6 +129,10 @@ class BattleVC: UIViewController {
     
     // Used during animations to determine which image to animate.
     var playerTurn = false
+    
+    var bounceAnimationNormal = true
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     
     
@@ -202,6 +208,18 @@ class BattleVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let fileURL: NSURL = NSBundle.mainBundle().URLForResource("BattleMusic", withExtension: "mp3")!
+        
+        appDelegate.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
+        
+        appDelegate.avPlayer.delegate = self
+        appDelegate.avPlayer.prepareToPlay()
+        appDelegate.avPlayer.volume = 1.0
+        
+        appDelegate.avPlayer.play()
+        
+        bounceAnimationTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "bounceAnimation", userInfo: nil, repeats: true)
         
         // These make sure the lower half of the view is blank until we decide who goes first.
         actionContainer.hidden = true
@@ -371,6 +389,20 @@ class BattleVC: UIViewController {
         opponentHealth.text = "\(opponentCurrentHealth)/\(opponentMaxHealth)"
         opponentStamina.text = "\(opponentCurrentStamina)/\(opponentMaxStamina)"
         
+    }
+    
+    func bounceAnimation () {
+        if bounceAnimationNormal {
+            playerDroplingImage.image = UIImage(named: "\(selectedDropling!.image)-2")
+            opponentDroplingImage.image = UIImage(named: "\(selectedOpponent!.image)-2")
+            
+            bounceAnimationNormal = false
+        } else {
+            playerDroplingImage.image = UIImage(named: "\(selectedDropling!.image)")
+            opponentDroplingImage.image = UIImage(named: "\(selectedOpponent!.image)")
+            
+            bounceAnimationNormal = true
+        }
     }
     
     // This function runs when it is the player's turn.
@@ -569,24 +601,6 @@ class BattleVC: UIViewController {
             middleActionLabel.text = "<"
         }
         
-        //        var playerAnimateDropling = CALayer()
-        //        var playerAnimateDroplingImage = UIImage(named: selectedDropling!.image)
-        //
-        //        playerAnimateDropling.contents = playerAnimateDroplingImage?.CGImage
-        //        playerAnimateDropling.contentsGravity = kCAGravityResizeAspect
-        //        playerAnimateDropling.contentsScale = UIScreen.mainScreen().scale
-        //        playerAnimateDropling.frame = playerDroplingImage.frame
-        //
-        //        self.view.layer.addSublayer(playerAnimateDropling)
-        //
-        //        var animation = CABasicAnimation(keyPath: "playerAttack")
-        //        animation.fromValue = playerAnimateDropling.position.x
-        //        animation.toValue = opponentDroplingImage.layer.position.x
-        //        animation.repeatCount = 1
-        //        animation.duration = 3
-        //
-        //        playerAnimateDropling.addAnimation(animation, forKey: "playerAttack")
-        
         var imageLocation = self.playerDroplingImage.frame
         var imageOpponentLocation = self.opponentDroplingImage.frame
         
@@ -653,12 +667,14 @@ class BattleVC: UIViewController {
     // Runs if the player wins.
     func playerVictory () {
         victory = true
+        appDelegate.avPlayer.stop()
         performSegueWithIdentifier("end", sender: self)
     }
     
     // Runs if the opponent wins.
     func opponentVictory () {
         victory = false
+        appDelegate.avPlayer.stop()
         performSegueWithIdentifier("end", sender: self)
     }
     
@@ -980,6 +996,14 @@ class BattleVC: UIViewController {
             statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
         }
     }
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        appDelegate.avPlayer.play()
+    }
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
+        println("\(error.localizedDescription)")
+    }
+    
 }
 
 
