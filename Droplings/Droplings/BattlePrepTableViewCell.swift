@@ -30,6 +30,7 @@ class BattlePrepTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        // Rounded corners, again.
         highStatContainer.layer.cornerRadius = highStatContainer.bounds.height * 0.4
         lowStatContainer.layer.cornerRadius = highStatContainer.bounds.height * 0.4
         
@@ -37,8 +38,6 @@ class BattlePrepTableViewCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
 }

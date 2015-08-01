@@ -59,7 +59,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     // MARK: - PLACEHOLDER VARIABLES
-    // If this app is ever expanded, these variables will need to be replaced with something more dynamic.
+    // If this app is ever expanded, these variables will need to be replaced with something more dynamic. But for now, they contain a nice set of stuff to play around with.
     let droplings: [Dropling] = [
         Dropling(name: "Blue", type: "Blue", damage: 18, defense: 10, health: 30, stamina: 55, regen: 9, image: "Blue Dropling 1", imageHat: "", imageShirt: "", equipment: Item()),
         Dropling(name: "Hershey", type: "Yellow", damage: 12, defense: 12, health: 58, stamina: 30, regen: 7, image: "Leafy Dropling 1", imageHat: "", imageShirt: "", equipment: Item()),
@@ -69,13 +69,14 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     let shirts: [Shirt] = [Shirt(name: "Captain Freedom", desc: "", damage: 2, defense: -1, health: 10, stamina: 0, regen: 0, image: "Captain Freedom 1"), Shirt(name: "Plank Armor", desc: "", damage: 3, defense: 1, health: 0, stamina: 0, regen: -1, image: "Plank Armor 1"), Shirt(name: "Steel", desc: "", damage: -2, defense: 6, health: 5, stamina: -5, regen: 0, image: "Steel 1")]
     
-    let items: [Item] = [Item(name: "Blast Protection Goggles", desc: "", damage: 0, defense: 3, health: 5, stamina: 0, regen: -1, image: "Blast Protection Goggles"), Item(name: "Fake Mustache", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 0, image: "Fake Mustache"), Item(name: "Heroic Cape", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Red Hero Cape"), Item(name: "Rickety Old Sword", desc: "", damage: 6, defense: -3, health: 0, stamina: 0, regen: 0, image: "Rickety Old Sword"), Item(name: "Super Soda", desc: "", damage: 0, defense: 0, health: 0, stamina: 10, regen: 2, image: "Soda Can"), Item(name: "War Axe of Pain", desc: "", damage: 7, defense: 0, health: 0, stamina: 0, regen: -10, image: "War Axe of Pain")]
+    let items: [Item] = [Item(name: "Blast Protection Goggles", desc: "", damage: 0, defense: 3, health: 5, stamina: 0, regen: -1, image: "Blast Protection Goggles"), Item(name: "Fake Mustache", desc: "", damage: 1, defense: 1, health: 5, stamina: 5, regen: 0, image: "Fake Mustache"), Item(name: "Heroic Cape", desc: "", damage: 0, defense: 0, health: 15, stamina: -5, regen: 0, image: "Red Hero Cape"), Item(name: "Rickety Old Sword", desc: "", damage: 6, defense: -3, health: 0, stamina: 0, regen: 0, image: "Rickety Old Sword"), Item(name: "Super Soda", desc: "", damage: 0, defense: 0, health: 0, stamina: 10, regen: 2, image: "Soda Can"), Item(name: "War Axe of Pain", desc: "", damage: 7, defense: 0, health: 0, stamina: 0, regen: -10, image: "Sir Court Godfry's Staff"), Item(name: "War Axe of Pain", desc: "", damage: 0, defense: 0, health: 0, stamina: 5, regen: 3, image: "Sir Court Godfry's Staff of The Nessie Alliance")]
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Giving a bunch of views some nice rounded corners. I love rounded corners.
         tableViewContainer.layer.cornerRadius = 20
         selectContainer.layer.cornerRadius = 20
         textContainer.layer.cornerRadius = 10
@@ -88,6 +89,7 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         battleButton.layer.cornerRadius = battleButton.bounds.height * 0.4
     }
     
+    // Preparing for battle by sending all selected items to BattleVC.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var battleVC = segue.destinationViewController as! BattleVC
         
@@ -98,6 +100,8 @@ class BattlePrepSubVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         battleVC.selectedItem = selectedItem
         battleVC.selectedOpponent = parent?.opponentDropling
         
+        
+        // Stops the menu music before transitioning into battle.
         appDelegate.avPlayer.stop()
     }
     

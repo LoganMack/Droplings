@@ -131,10 +131,13 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     // Used during animations to determine which image to animate.
     var playerTurn = false
     
+    // Variable used during animation.
     var bounceAnimationNormal = true
     
+    // Variable used to grab the audio player from the app delegate later.
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    // Audio player for the attack sound effect.
     var attackSoundPlayer = AVAudioPlayer()
     
     
@@ -207,32 +210,38 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var opponentActionLabel: UILabel!
     @IBOutlet weak var middleActionLabel: UILabel!
     
+    // Used to change the attack button text when the user tries to do something they can't do.
     @IBOutlet weak var attackButtonText: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Grabs the battle music file.
         let fileURL: NSURL = NSBundle.mainBundle().URLForResource("BattleMusic", withExtension: "mp3")!
         
+        // Gives the music to the audio player in the app delegate.
         appDelegate.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
         
+        // Some setup for the audio player.
         appDelegate.avPlayer.delegate = self
         appDelegate.avPlayer.prepareToPlay()
         appDelegate.avPlayer.volume = 1.0
         
+        // Playing the music.
         appDelegate.avPlayer.play()
         
-        
+        // Grabs the attack sound effect.
         let fileURLAttack: NSURL = NSBundle.mainBundle().URLForResource("Punch3", withExtension: "mp3")!
         
+        // Same as above, gives the sound effect to the sound effect player, and then we do some setup.
         attackSoundPlayer = AVAudioPlayer(contentsOfURL: fileURLAttack, fileTypeHint: AVFileTypeMPEGLayer3, error: nil)
         
         attackSoundPlayer.delegate = nil
         attackSoundPlayer.prepareToPlay()
         attackSoundPlayer.volume = 1.0
         
-        
+        // Starts the bouncing animation.
         bounceAnimationTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "bounceAnimation", userInfo: nil, repeats: true)
         
         // These make sure the lower half of the view is blank until we decide who goes first.
@@ -332,6 +341,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         playerName.text = selectedDropling!.name
         opponentName.text = selectedOpponent!.name
         
+        // Updates the UI to all of these initial values.
         updateUI()
         
         // Disables user interaction until the fade-in animation is complete.
@@ -356,7 +366,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     
     
     // MARK: - CUSTOM FUNCTIONS
-    /// This function fades the view from black to white.
+    /// This function fades the view from black to white over the course of a few seconds, when it is first loaded. It also randomly selects which player gets to go first, and starts their turn.
     func fade () {
         if fadeView.alpha < 1 {
             fadeView.alpha = fadeView.alpha + 0.005
@@ -375,7 +385,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    // This function updates the basic stats UI for both players.
+    /// This function updates the basic stats UI for both players, can be called at anytime to update all important UI elements.
     func updateUI () {
         if playerCurrentHealth < 0 {
             playerCurrentHealth = 0
@@ -407,6 +417,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
     }
     
+    /// This function manages the bouncing animation done by the droplings throughout the battle. It is called every 1.5 seconds(by a timer in the viewDidLoad), and simply changes the image for each dropling to an alternate, to make it appear like they are bouncing.
     func bounceAnimation () {
         if bounceAnimationNormal {
             playerDroplingImage.image = UIImage(named: "\(selectedDropling!.image)-2")
@@ -425,24 +436,28 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    /// Simply changes the text of the attack button back to ATTACK after it was changed to alert the user of something.
     func revertAttackText () {
         attackButtonText.text = "ATTACK"
         attackContainer.userInteractionEnabled = true
     }
     
-    // This function runs when it is the player's turn.
+    /// This function runs when it is the player's turn.
     func battlePlayerTurn () {
         
+        // First we hide the container for attack info and unhide the skills selector(actionContainer).
         view.userInteractionEnabled = false
         actionContainer.hidden = false
         battleActionContainer.hidden = true
         updateUI()
         
+        // Next we check to see if the opponent has died. If they have, we stop the battle and declare the player the winner.
         if opponentCurrentHealth <= 0 {
             playerVictory()
             return
         }
         
+        // Now we check to see if the player has any buffs on them. If they do, we need to change their stats accordingly, and then reduce the buff/nerf time by one.
         if playerBuffTime > 0 || playerNerfTime > 0 {
             playerCurrentHealth = playerCurrentHealth + playerBuffHealth + playerNerfHealth
             playerCurrentStamina = playerCurrentStamina + playerBuffStamina + playerNerfStamina
@@ -454,8 +469,10 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             --playerNerfTime
         }
         
+        // Now we regenerate some of the player's stamina.
         playerCurrentStamina = playerCurrentStamina + playerCurrentRegen
         
+        // With these two checks we make sure the player's health and stamina don't go over their maximums.
         if playerCurrentStamina > playerMaxStamina {
             playerCurrentStamina = playerMaxStamina
         }
@@ -466,6 +483,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
         updateUI()
         
+        // Now we make sure a nerf hasn't killed the player.
         if playerCurrentHealth <= 0 {
             opponentVictory()
             return
@@ -475,12 +493,13 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
     }
     
-    // Runs when it is the opponent's turn.
+    /// Runs when it is the opponent's turn.
     func battleOpponentTurn () {
         
         view.userInteractionEnabled = false
         updateUI()
         
+        // We check to see if the player has died, then if the opponent has died.
         if playerCurrentHealth <= 0 {
             opponentVictory()
             return
@@ -493,16 +512,20 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             return
         }
         
+        // Now we select a skill for the opponent.
         opponentSkillSelector()
         
         view.userInteractionEnabled = true
         
     }
     
+    /// Chooses a skill for the opponent.
     func opponentSkillSelector() {
         
+        // We pick a random number between 0 and 5 for the skill/item to select.
         aiSkillSelector = Int(arc4random_uniform(4))
         
+        // Here we make sure that the opponent doesn't spend forever trying to pick something even if it can't afford to use the skill. So after a few attempts, the opponent gives up and just attacks.
         if preventEndlessLoop >= 0 {
             if opponentCurrentStamina > opponentSkills[aiSkillSelector].stCost && opponentCurrentHealth > opponentSkills[aiSkillSelector].hpCost {
                 opponentAttack()
@@ -516,8 +539,10 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    /// Called when the opponent attacks the player.
     func opponentAttack() {
         
+        // First we check if the number rolled was below 4. If it was, we can loop through all skills and apply its effects to the player(if it affects the opponent). If not, we apply the item's buffs to the opponent instead.
         if aiSkillSelector < 4 {
             if opponentSkills[aiSkillSelector].affectsOpponent {
                 playerNerfHealth = opponentSkills[aiSkillSelector].health
@@ -553,21 +578,21 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             opponentBuffTime = 1
         }
         
+        // Now we also make sure the opponent's buffs and debuffs affect their damage, defense, and stamina regeneration.
         opponentCurrentDamage = opponentOriginalDamage + opponentBuffDamage + opponentNerfDamage
         opponentCurrentDefense = opponentOriginalDefense + opponentBuffDefense + opponentNerfDefense
         opponentCurrentRegen = opponentOriginalRegen + opponentBuffRegen + opponentNerfRegen
         
+        // Next we roll a value for the opponent's attack and the player's defense, and add the opponent's damage and player's defense to those values.
         var opponentAttackValue = Int(arc4random_uniform(15)) + opponentCurrentDamage
         var playerDefenseValue = Int(arc4random_uniform(15)) + playerCurrentDefense
         
+        // And we calculate the net damage based on that.
         var netDamage = opponentAttackValue - playerDefenseValue
         
         updateUI()
         
-        println("OPPONENT ATTACK")
-        println(opponentAttackValue)
-        println(playerDefenseValue)
-        
+        // Making sure some attack statistics are properly hidden.
         playerTurn = false
         userActionImage.image = nil
         opponentActionImage.image = nil
@@ -577,14 +602,13 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         opponentActionLabel.hidden = true
         middleActionLabel.text = ""
         
+        // Here we check if the damage done was greater than zero. If it was, we change the player's health accordingly. Either way, we send an array containing the damage and defense values into an NSTimer and a selector.
         if netDamage <= 0 {
             battleActionContainer.hidden = false
             
             var array = [playerDefenseValue, opponentAttackValue]
             
             statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
-            
-            //battlePlayerTurn()
             
         } else {
             playerCurrentHealth = playerCurrentHealth - netDamage
@@ -595,22 +619,24 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             var array = [playerDefenseValue, opponentAttackValue]
             
             statShow1 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow:", userInfo: array, repeats: false)
-            
-            //battlePlayerTurn()
         }
         
     }
     
+    /// This is the first in a series of functions that manage the animation showing how much damage was dealt, and how much of its damage was eliminated with defense.
     func statShow (timer: NSTimer) {
         
+        // Empty array that will be given the array from the NSTimer's userInfo.
         var array: [Int] = []
         
+        // First we check who's turn it is. Then we give the attack the "attack" image, and the defender the "defense" image. Then we show the attack and defense values to the user.
         if playerTurn {
             userActionImage.image = UIImage(named: "attack")
             opponentActionImage.image = UIImage(named: "defense")
             userActionLabel.hidden = false
             opponentActionLabel.hidden = false
             
+            // Casting the array into an array of Ints.
             array = timer.userInfo as! [Int]
             
             userActionLabel.text = array[0].description
@@ -632,17 +658,22 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             middleActionLabel.text = "<"
         }
         
+        // Setting up the attack animation by grabbing the original location of each image.
         var imageLocation = self.playerDroplingImage.frame
         var imageOpponentLocation = self.opponentDroplingImage.frame
         
+        // Now we check who is attacking, and then perform the attack animation for the attacker.
         if playerTurn {
             
+            // We use a UIView.animateWithDuration to animate the image view.
             UIView.animateWithDuration(1, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
                 
+                // We have to move everything. The hat, shirt, and dropling itself.
                 self.playerDroplingImage.frame = self.opponentDroplingImage.frame
                 self.playerHat.frame = self.opponentDroplingImage.frame
                 self.playerShirt.frame = self.opponentDroplingImage.frame
                 
+                // Upon completion, we run this code, which returns everything to its original position.
                 }, completion: {finished in UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                     self.playerDroplingImage.frame = imageLocation
                     self.playerHat.frame = imageLocation
@@ -657,20 +688,26 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
                 }, completion: {finished in UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {self.opponentDroplingImage.frame = imageOpponentLocation}, completion: nil)})
         }
         
+        // Now we start the next phase of the attack animation, after 3 seconds.
         statShowNext2 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow2:", userInfo: array, repeats: false)
     }
     
+    /// Second phase of attack animation.
     func statShow2 (timer: NSTimer) {
         
+        // We play the attack sound effect. This is timed to happen at the same moment the attack animation makes the attacker hit the defender.
         attackSoundPlayer.play()
         
+        // Another empty array for userInfo.
         var array: [Int] = []
         
         array = timer.userInfo as! [Int]
         
+        // Here we subtract the numbers from each other to show how much more damage there was than defense, or vice versa.
         userActionLabel.text = "\(array[0] - array[1])"
         opponentActionLabel.text = "\(array[1] - array[0])"
         
+        // Making sure we don't show negative numbers here.
         if array[0] - array[1] < 0 {
             userActionLabel.text = "0"
         }
@@ -681,9 +718,11 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
         updateUI()
         
+        // Setting up the final phase.
         statShowNext3 = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "statShow3", userInfo: nil, repeats: false)
     }
     
+    /// Phase three of the attack animation. All we do is update the UI and then start the next player's turn.
     func statShow3 () {
         
         updateUI()
@@ -697,14 +736,14 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         
     }
     
-    // Runs if the player wins.
+    /// Runs if the player wins. Simply segues to the battle stats screen.
     func playerVictory () {
         victory = true
         appDelegate.avPlayer.stop()
         performSegueWithIdentifier("end", sender: self)
     }
     
-    // Runs if the opponent wins.
+    /// Runs if the opponent wins. Simply segues to the battle stats screen.
     func opponentVictory () {
         victory = false
         appDelegate.avPlayer.stop()
@@ -714,6 +753,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
     
     // MARK: - @IBActions
     // Tap Gesture Recognizers
+    // These send the skill that was tapped to a variable, selectedAttackIndex, to determine which skill to use. They also give the selected skill a border and border color, so it is easy to tell what is selected.
     @IBAction func skill1Tap(sender: UITapGestureRecognizer) {
         if selectedAttack == sender.view {
             selectedAttack?.layer.borderWidth = 0
@@ -725,6 +765,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             
             selectedAttack = sender.view
             
+            // If the skill affects the opponent, its border color needs to be yellow to match the background. Otherwise, it'll be blue.
             if playerSkills[0].affectsOpponent == true {
                 selectedAttack?.layer.borderColor = UIColor.yellowColor().CGColor
             } else {
@@ -854,6 +895,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    // This is triggered if the user taps on the item instead. It functionally does the same thing as the skill taps.
     @IBAction func item1Tap(sender: UITapGestureRecognizer) {
         if selectedAttack == sender.view {
             selectedAttack?.layer.borderWidth = 0
@@ -879,10 +921,14 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    // A lot of this is the same stuff that happens in opponentAttack(), but there is more meat in here because the user is doing it, not the CPU. This is triggered when the player taps the attack button.
     @IBAction func attackTap(sender: UITapGestureRecognizer) {
         if selectedAttack != nil {
             
+            // Checks if we selected an item or a skill(skills have indexes lower than 4, the item's index is 4).
             if selectedAttackIndex < 4 {
+                
+                // We have to make sure the player has the stamina(or health) to use this skill. If they don't, we give them an alert of sorts by changing the attack button's text to a warning for 2 seconds.
                 if playerSkills[selectedAttackIndex].stCost > playerCurrentStamina {
                     attackButtonText.text = "Stamina too low!"
                     attackContainer.userInteractionEnabled = false
@@ -893,6 +939,8 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
                     attackContainer.userInteractionEnabled = false
                     revertAttackTextTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "revertAttackText", userInfo: nil, repeats: false)
                     return
+                    
+                    // If they can afford the skill, we then check if it affects their opponent or not, and change the opponents/player's stats accordingly. We also subtract the stamina/health cost of the skill from the player's current stamina/health.
                 } else if playerSkills[selectedAttackIndex].affectsOpponent {
                     opponentNerfHealth = playerSkills[selectedAttackIndex].health
                     opponentNerfStamina = playerSkills[selectedAttackIndex].stamina
@@ -918,8 +966,10 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
                     
                 }
                 
+                // Stat tracking, woohoo.
                 ++skillsUsed
                 
+                // If they choose the item, we run this instead. It uses the item's stats instead, and then hides the item's view so it can't be used twice.
             } else {
                 playerCurrentHealth = playerCurrentHealth + selectedItem!.health
                 playerCurrentStamina = playerCurrentStamina + selectedItem!.stamina
@@ -933,20 +983,19 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             }
         }
         
+        // Applies buff and nerf stats.
         playerCurrentDamage = playerOriginalDamage + playerBuffDamage + playerNerfDamage
         playerCurrentDefense = playerOriginalDefense + playerBuffDefense + playerNerfDefense
         playerCurrentRegen = playerOriginalRegen + playerBuffRegen + playerNerfRegen
         
+        // Next we roll a value for the opponent's attack and the player's defense, and add the opponent's damage and player's defense to those values.
         var playerAttackValue = Int(arc4random_uniform(15)) + playerCurrentDamage
         var opponentDefenseValue = Int(arc4random_uniform(15)) + opponentCurrentDefense
         
+        // And we calculate the net damage based on that.
         var netDamage = playerAttackValue - opponentDefenseValue
         
         updateUI()
-        
-        println("PLAYER ATTACK")
-        println(playerAttackValue)
-        println(opponentDefenseValue)
         
         userActionImage.image = nil
         opponentActionImage.image = nil
@@ -956,6 +1005,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         opponentActionLabel.hidden = true
         middleActionLabel.text = ""
         
+        // Here we check if the damage done was greater than zero. If it was, we change the player's health accordingly. Either way, we send an array containing the damage and defense values into an NSTimer and a selector.
         if netDamage <= 0 {
             if opponentBuffTime > 0 || opponentNerfTime > 0 {
                 opponentCurrentHealth = opponentCurrentHealth + opponentBuffHealth + opponentNerfHealth
@@ -979,7 +1029,6 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
             }
             
             actionContainer.hidden = true
-            
             userActionImage.image = nil
             opponentActionImage.image = nil
             userActionLabel.text = "??"
@@ -1044,6 +1093,7 @@ class BattleVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    // This just loops the music.
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         appDelegate.avPlayer.play()
     }

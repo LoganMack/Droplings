@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    // Global Music Player!
     var avPlayer = AVAudioPlayer()
     
     

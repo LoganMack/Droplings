@@ -439,7 +439,7 @@
                                     <constraint firstAttribute="height" constant="18" id="19g-qE-aIz"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Green Dropling 1" translatesAutoresizingMaskIntoConstraints="NO" id="q54-qo-Lc2" userLabel="Opponent">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Orange Dropling 1" translatesAutoresizingMaskIntoConstraints="NO" id="q54-qo-Lc2" userLabel="Opponent">
                                 <rect key="frame" x="406.5" y="8" width="86" height="86"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="q54-qo-Lc2" secondAttribute="width" multiplier="1:1" id="UmI-oH-0fj"/>
@@ -1408,7 +1408,7 @@
                                                     <constraint firstAttribute="width" constant="2" id="WbF-dV-EIU"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Green Dropling 1" translatesAutoresizingMaskIntoConstraints="NO" id="gX2-bk-092" userLabel="OpponentImage">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Orange Dropling 1" translatesAutoresizingMaskIntoConstraints="NO" id="gX2-bk-092" userLabel="OpponentImage">
                                                 <rect key="frame" x="528" y="116" width="64" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="64" id="Uek-gD-huW"/>
@@ -2562,7 +2562,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Green Dropling 1" width="61" height="64"/>
         <image name="ICON - Settings" width="512" height="512"/>
         <image name="Item" width="128" height="128"/>
         <image name="Molten Dropling 1" width="61" height="64"/>
@@ -2570,6 +2569,7 @@
         <image name="No Hat" width="29" height="24"/>
         <image name="No Item" width="128" height="128"/>
         <image name="No Shirt" width="61" height="21"/>
+        <image name="Orange Dropling 1" width="61" height="64"/>
         <image name="attack" width="50" height="50"/>
         <image name="defense" width="50" height="50"/>
         <image name="hp" width="50" height="50"/>

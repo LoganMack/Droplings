@@ -11,12 +11,14 @@ import AVFoundation
 
 class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
     
+    // These variables will hold stats that will get passed in.
     var victory = true
     var damageDealt = 0
     var damageRecieved = 0
     var staminaUsed = 0
     var skillsUsed = 0
     
+    // Link to the app delegate(for the music player).
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     @IBOutlet weak var victoryLabel: UILabel!
@@ -32,8 +34,10 @@ class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setting up the music again.
         var fileURL: NSURL = NSBundle.mainBundle().URLForResource("VictoryMusic", withExtension: "mp3")!
         
+        // If the user lost, we need to change the music to the sad music. Losers don't get happy music.
         if victory == false {
             fileURL = NSBundle.mainBundle().URLForResource("LoseMusic", withExtension: "mp3")!
         }
@@ -46,15 +50,18 @@ class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
         
         appDelegate.avPlayer.play()
         
+        // More rounded corners!
         container.layer.cornerRadius = container.bounds.height * 0.4
         newBattleButton.layer.cornerRadius = newBattleButton.bounds.height * 0.4
         mainMenuButton.layer.cornerRadius = mainMenuButton.bounds.height * 0.4
         
+        // Giving stats to labels.
         damageDealtLabel.text = "Damage Dealt: \(damageDealt)"
         damageRecievedLabel.text = "Damage Taken: \(damageRecieved)"
         staminaUsedLabel.text = "Stamina Used: \(staminaUsed)"
         skillsUsedLabel.text = "Skills Used: \(skillsUsed)"
 
+        // Checking if the user won or not, and then telling them.
         if victory {
             victoryLabel.text = "Victory!"
         } else {
@@ -62,6 +69,7 @@ class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    // Prepping for two different segways here using optional binding. All these do is make sure the music starts to play no matter where we go.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         appDelegate.avPlayer.stop()
         
@@ -79,6 +87,7 @@ class BattleStatsVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    // Looping that music.
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         appDelegate.avPlayer.play()
     }

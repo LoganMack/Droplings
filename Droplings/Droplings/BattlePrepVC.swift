@@ -10,6 +10,7 @@ import UIKit
 
 class BattlePrepVC: UIViewController {
     
+    // IBOutlets
     @IBOutlet weak var playerImage: UIImageView!
     @IBOutlet weak var opponentImage: UIImageView!
     
@@ -33,14 +34,17 @@ class BattlePrepVC: UIViewController {
     @IBOutlet weak var playerHat: UIImageView!
     @IBOutlet weak var opponentHat: UIImageView!
     
+    // Giving our opponent an inital value.
     var opponentDropling: Dropling = Dropling()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        opponentDropling = Dropling(name: "Opponent", type: "Green", damage: Int(arc4random_uniform(15) + 10), defense: Int(arc4random_uniform(10) + 10), health: Int(arc4random_uniform(30) + 40), stamina: Int(arc4random_uniform(30) + 40), regen: Int(arc4random_uniform(15) + 5), image: "Orange Dropling 1", imageHat: "", imageShirt: "", equipment: Item())
+        // Giving our opponent some random attributes.
+        opponentDropling = Dropling(name: "Opponent", type: "Green", damage: Int(arc4random_uniform(15) + 10), defense: Int(arc4random_uniform(8) + 1), health: Int(arc4random_uniform(30) + 40), stamina: Int(arc4random_uniform(30) + 40), regen: Int(arc4random_uniform(15) + 5), image: "Orange Dropling 1", imageHat: "", imageShirt: "", equipment: Item())
         
+        // Making more sexy rounded corners.
         userStatContainer.layer.cornerRadius = userStatContainer.bounds.height * 0.4
         opponentStatContainer.layer.cornerRadius = opponentStatContainer.bounds.height * 0.4
         
@@ -50,11 +54,13 @@ class BattlePrepVC: UIViewController {
         opponentDamageLabel.text = opponentDropling.damage.description
         opponentRegenLabel.text = opponentDropling.regen.description
         
+        // Setting up the container view controller below as a child of this view, and telling it that this view controller is its parent.
         var subVC: BattlePrepSubVC = childViewControllers[0] as! BattlePrepSubVC
         subVC.parent = subVC.parentViewController as? BattlePrepVC
         
     }
     
+    // Unwind function for BattleStatsVC.
     @IBAction func unwindToBattlePrepSub(segue: UIStoryboardSegue) {
     }
     

@@ -65,13 +65,13 @@
 		4376F8D91B54A0640005987B /* BattlePrepVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepVC.swift; sourceTree = "<group>"; };
 		4376F8DB1B54A4680005987B /* DroplingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroplingBase.swift; sourceTree = "<group>"; };
 		4376F8DD1B54A9D50005987B /* BattlePrepSubVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattlePrepSubVC.swift; sourceTree = "<group>"; };
-		439A9C271B693F70003958C0 /* Punch3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Punch3.mp3; sourceTree = "<group>"; };
-		439A9C291B693F81003958C0 /* Click3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click3.mp3; sourceTree = "<group>"; };
-		439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BattleMusic.mp3; sourceTree = "<group>"; };
-		439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MenuMusic.mp3; sourceTree = "<group>"; };
+		439A9C271B693F70003958C0 /* Punch3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Punch3.mp3; path = Droplings/Punch3.mp3; sourceTree = "<group>"; };
+		439A9C291B693F81003958C0 /* Click3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Click3.mp3; path = Droplings/Click3.mp3; sourceTree = "<group>"; };
+		439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BattleMusic.mp3; path = Droplings/BattleMusic.mp3; sourceTree = "<group>"; };
+		439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MenuMusic.mp3; path = Droplings/MenuMusic.mp3; sourceTree = "<group>"; };
 		439A9C2F1B693FD8003958C0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		439A9C311B694C18003958C0 /* VictoryMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = VictoryMusic.mp3; sourceTree = "<group>"; };
-		439A9C321B694C18003958C0 /* LoseMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LoseMusic.mp3; sourceTree = "<group>"; };
+		439A9C311B694C18003958C0 /* VictoryMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = VictoryMusic.mp3; path = Droplings/VictoryMusic.mp3; sourceTree = "<group>"; };
+		439A9C321B694C18003958C0 /* LoseMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = LoseMusic.mp3; path = Droplings/LoseMusic.mp3; sourceTree = "<group>"; };
 		43D1C5041B5D9BDB0018D9ED /* BattleStatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleStatsVC.swift; sourceTree = "<group>"; };
 		43D1C5061B5DB43F0018D9ED /* HelpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelpVC.swift; path = ../HelpVC.swift; sourceTree = "<group>"; };
 		43D1C5091B5DB9530018D9ED /* HelpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
@@ -144,13 +144,8 @@
 		4376F8B61B549F080005987B /* Droplings */ = {
 			isa = PBXGroup;
 			children = (
-				439A9C311B694C18003958C0 /* VictoryMusic.mp3 */,
-				439A9C321B694C18003958C0 /* LoseMusic.mp3 */,
-				439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */,
-				439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */,
-				439A9C291B693F81003958C0 /* Click3.mp3 */,
-				439A9C271B693F70003958C0 /* Punch3.mp3 */,
 				4376F8B91B549F080005987B /* AppDelegate.swift */,
+				439A9C351B6C6DE5003958C0 /* Music Files */,
 				43D1C5081B5DB9310018D9ED /* Help Files */,
 				434284931B57195A0018602E /* Base Classes */,
 				434284981B5757B90018602E /* Battle Prep */,
@@ -189,6 +184,20 @@
 				4376F8CE1B549F090005987B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		439A9C351B6C6DE5003958C0 /* Music Files */ = {
+			isa = PBXGroup;
+			children = (
+				439A9C311B694C18003958C0 /* VictoryMusic.mp3 */,
+				439A9C321B694C18003958C0 /* LoseMusic.mp3 */,
+				439A9C2B1B693FA2003958C0 /* BattleMusic.mp3 */,
+				439A9C2C1B693FA2003958C0 /* MenuMusic.mp3 */,
+				439A9C291B693F81003958C0 /* Click3.mp3 */,
+				439A9C271B693F70003958C0 /* Punch3.mp3 */,
+			);
+			name = "Music Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		43D1C5081B5DB9310018D9ED /* Help Files */ = {

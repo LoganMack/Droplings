@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Unused for now.
 class HelpTopic {
     
     var name = ""
